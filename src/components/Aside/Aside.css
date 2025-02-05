@@ -1,0 +1,56 @@
+@import url('../blocks/Menu.css');
+
+.aside {
+    grid-area: aside;
+    inline-size: 4rem;
+    block-size: calc(100vh - 50px);
+    background-color: var(--gray);
+    overflow: hidden;
+    transition: .5s ease-in all;
+    border-inline-end: 1px solid var(--dark-gray);
+}
+
+.aside__container {
+    display: flex;
+    flex-direction: column;
+    block-size: 100%;
+    gap: 2rem;
+}
+
+.aside__header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    block-size: 3.75rem;
+}
+
+.aside__title {
+    margin: 0;
+    font-size: 1rem;
+    display: none;
+    font-family: 'Open Bold';
+}
+
+.aside__profile {
+    inline-size: 2rem;
+    border-radius: 50%;
+    align-self: center;
+}
+
+.aside__footer {
+    margin-top: auto;
+}
+
+@media screen and (min-width: 1024px){
+    .aside {
+        inline-size: 15.5rem;
+    }
+    .aside__header {
+        justify-content: initial;
+        padding-inline-start: 1.25rem;
+    }
+    .aside__title {
+        display: inline;
+    }
+}

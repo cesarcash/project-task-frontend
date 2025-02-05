@@ -1,0 +1,15 @@
+.footer {
+    grid-area: footer;
+    background-color: var(--gray);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-block-start: 1px solid var(--dark-gray);
+
+}
+
+.footer__paragraph {
+    font-family: 'Open Bold';
+    margin: 0;
+    font-size: .9rem;
+}

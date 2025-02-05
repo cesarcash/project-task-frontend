@@ -1,0 +1,6 @@
+.page {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto 50px;
+    grid-template-areas: "aside content" "footer footer";
+}

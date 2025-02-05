@@ -1,0 +1,113 @@
+.main {
+    grid-area: content;
+    background-color: var(--black);
+    block-size: calc(100vh - 3.1rem);
+    overflow-y: scroll;
+}
+
+.main__header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--gray);
+    padding-inline: 1.5rem;
+    block-size: 3.75rem;
+    box-sizing: border-box;
+    border-block-end: 1px solid var(--dark-gray);
+    position: sticky;
+    top: 0;
+}
+
+.main__title {
+    margin: 0;
+    font-size: 1rem;
+    font-family: 'Open Bold';
+
+}
+
+.main__body {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(2 1fr);
+    grid-template-areas: "todo" "done";
+    padding: 1rem 3rem;
+}
+
+.main__todo {
+    grid-area: todo;
+}
+
+.main__body-title {
+    margin: 0;
+    margin-block-end: 1rem;
+    color: var(--light-gray);
+    font-size: .75rem;
+    font-family: 'Open Bold';
+}
+
+.main__body-title::before {
+    content: '';
+    margin-inline-end: .5rem;
+    inline-size: .5rem;
+    aspect-ratio: 1;
+    display: inline-block;
+    background-color: var(--purple);
+    border-radius: 50%;
+}
+
+.main__body-title--highlighted::before {
+    background-color: var(--green);
+}
+
+.main__done {
+    grid-area: done;
+}
+
+.main__task {
+    padding: 1rem;
+    background: var(--gray);
+    margin-block-end: 1rem;
+}
+
+.main__task-title {
+    margin: 0;
+    color: var(--white);
+    font-weight: 500;
+    font-size: .85rem;
+    font-family: 'Open Bold';
+}
+
+.main__task-description {
+    font-size: .85rem;
+    line-height: 1.25rem;
+    color: var(--light-gray);
+    font-family: 'Open Light';
+}
+
+.main__task-date {
+    color: var(--light-gray);
+    font-size: .65rem;
+    font-family: 'Open Bold';
+    margin: 0;
+}
+
+@media screen and (min-width: 480px){
+    .main__header {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+}
+
+@media screen and (min-width: 1024px){
+    .main__body {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: auto;
+        grid-template-areas: "todo done";
+        gap: 3rem;
+        padding: 2rem 3rem;
+    }
+    .main__task {
+        padding: 1.5rem;
+    }
+}
