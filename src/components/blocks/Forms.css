@@ -1,5 +1,6 @@
 .form {
-    min-inline-size: 40rem;
+    max-inline-size: 40rem;
+    inline-size: 100%;
     background-color: var(--gray);
     padding: 1.5rem 1rem;
     display: flex;
@@ -41,5 +42,4 @@
     color: var(--white);
     font-weight: 600;
     font-size: .9rem;
-    align-self: flex-start;
 }

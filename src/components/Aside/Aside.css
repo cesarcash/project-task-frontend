@@ -1,5 +1,3 @@
-@import url('../blocks/Menu.css');
-
 .aside {
     grid-area: aside;
     inline-size: 4rem;

@@ -1,17 +1,17 @@
-import './Profile.css';
+import './Dashboard.css';
 import Header from '../Header/Header';
 
-const Profile = () => {
+const Dashboard = () => {
     return (
         <main className="main">
             <Header>
-                <h2 className="header__title">Perfil del usuario</h2>
+                <h2 className="header__title">Dashboard</h2>
             </Header>
-            <section className="profile">
+            <section className="dashboard">
                 
             </section>
         </main>
     );
 }
 
-export default Profile;
+export default Dashboard;

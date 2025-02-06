@@ -6,7 +6,7 @@ const Main = () => {
     return (
         <main className="main">
             <Header>
-                <h2 className="header__title">Lista de tareas</h2>
+                <h2 className="header__title">Mis tareas</h2>
                 <button className="form__button">Añadir tarea</button>
             </Header>
             <section className="main__body">
