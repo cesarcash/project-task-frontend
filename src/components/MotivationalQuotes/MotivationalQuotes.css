@@ -1,0 +1,42 @@
+.quotes {
+    padding: 4rem 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.quotes__card {
+    background-color: var(--gray);
+    min-inline-size: 20rem;
+    block-size: 18rem;
+    min-block-size: auto;
+    padding: 1.5rem 2rem;
+    flex: 1;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.quotes__header {
+    border-block-end: 1px solid var(--dark-gray);
+    padding-block-end: 1rem;
+}
+
+.quotes__body {
+    padding-block-start: 1rem;
+}
+
+.quotes__author {
+    margin: 0;
+    font-family: 'Open Bold';
+    font-size: 1.1rem;
+    color: var(--white);
+}
+
+.quotes__paragraph {
+    margin: 0;
+    font-size: 1rem;
+    color: var(--light-gray);
+    line-height: 1.5rem;
+}

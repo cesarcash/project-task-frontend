@@ -8,6 +8,7 @@ import Profile from '../Profile/Profile'
 import Footer from '../Footer/Footer'
 import Settings from '../Settings/Settings'
 import PageNotFound from '../PageNotFound/PageNotFound'
+import MotivationalQuotes from '../MotivationalQuotes/MotivationalQuotes'
 
 function App() {
 
@@ -19,6 +20,7 @@ function App() {
           <Route path="*" element={<PageNotFound />} />
           <Route path="/" element={<Dashboard />} />
           <Route path="/my-task" element={<Main />} />
+          <Route path="/quotes" element={<MotivationalQuotes />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/settings" element={<Settings />} />
         </Routes>

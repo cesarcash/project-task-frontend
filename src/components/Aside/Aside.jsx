@@ -1,6 +1,6 @@
 import { NavLink, Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHouse, faUser, faRightFromBracket, faListCheck, faGear } from '@fortawesome/free-solid-svg-icons';
+import { faHouse, faUser, faRightFromBracket, faListCheck, faGear, faQuoteLeft } from '@fortawesome/free-solid-svg-icons';
 import Menu from '../Menu/Menu'
 import './Aside.css';
 import Avatar from '../../images/avatar.png';
@@ -34,6 +34,12 @@ const Aside = () => {
                             <NavLink to="/profile" className={customClassName}>
                                 <FontAwesomeIcon className="menu__icon" icon={faUser} />
                                 <span className="menu__text">Perfil</span>
+                            </NavLink>
+                        </li>
+                        <li className="menu__item">
+                            <NavLink to="/quotes" className={customClassName}>
+                                <FontAwesomeIcon className="menu__icon" icon={faQuoteLeft} />
+                                <span className="menu__text">Frases</span>
                             </NavLink>
                         </li>
                     </Menu>
