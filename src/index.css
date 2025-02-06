@@ -1,6 +1,6 @@
 @import url('./vendor/normalize.css');
 @import url('./vendor/fonts.css');
-@import url('./components/blocks/Button.css');
+@import url('./components/blocks/Forms.css');
 @import url('./components/blocks/Page.css');
 
 :root {
@@ -11,6 +11,8 @@
   --white: #f5f5f5;
   --purple: #645fc6;
   --green: #6bdfad;
+  --headerBlockSize: 3.75rem;
+  --footerBlockSize: 3.125rem;
   font-size: 16px;
 }
 
