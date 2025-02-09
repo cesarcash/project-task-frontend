@@ -8,37 +8,37 @@
 
         const [quotes, setQuotes] = useState([]);
         const [loading, setLoading] = useState(false);
-        const [limit, setLimit] = useState(3);
         const [hasMore, setHasMore] = useState(true);
 
-        const fetchQuotes = async () => {
+        useEffect(() => {
+            const storedQuotes = JSON.parse(localStorage.getItem('quotes')) || [];
+            if (storedQuotes.length > 0) {
+                setQuotes(storedQuotes);
+            } else {
+                // fetchQuotes();
+            }
+        }, []);
 
+        useEffect(() => {
+            localStorage.setItem('quotes', JSON.stringify(quotes));
+        }, [quotes]);
+
+        const fetchQuotes = async () => {
             setLoading(true);
 
             try {
-
-                const newQuotes = await api.getQuotes(limit);
+                const newQuotes = await api.getQuotes(3);
                 setQuotes(prevQuotes => [...prevQuotes, ...newQuotes]);
-                
-                // setLimit(newQuotes.length + 3);
-                // localStorage.setItem('numQuotes',newQuotes.length + 3);
-                // console.log("🚀 ~ fetchQuotes ~ newQuotes.length:", newQuotes.length + 3)
 
-                if (newQuotes.length < limit) {
+                if (newQuotes.length < 3) {
                     setHasMore(false);
                 }
-
             } catch (error) {
                 console.error('Error fetching quotes:', error);
             } finally {
                 setLoading(false);
             }
-
         };
-
-        useEffect(() => {
-            fetchQuotes();
-        },[]);
 
         const handleLoadMore = () => {
             fetchQuotes();
