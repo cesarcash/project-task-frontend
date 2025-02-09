@@ -14,9 +14,7 @@
             const storedQuotes = JSON.parse(localStorage.getItem('quotes')) || [];
             if (storedQuotes.length > 0) {
                 setQuotes(storedQuotes);
-            } else {
-                // fetchQuotes();
-            }
+            } 
         }, []);
 
         useEffect(() => {
