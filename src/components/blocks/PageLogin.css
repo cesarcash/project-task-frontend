@@ -1,0 +1,39 @@
+.login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    block-size: 100vh;
+    background-color: var(--black);
+    flex-direction: column;
+    /* box-sizing: border-box; */
+}
+
+.login__paragraph {
+    margin: 1rem 0;
+    font-size: .9rem;
+    font-family: 'Open Regular';
+    text-align: center;
+}
+
+.login__paragraph--small {
+    font-size: .8rem;
+}
+
+.login__title {
+    margin: 1.5rem 0;
+    text-align: center;
+}
+
+.login__paragraph_link {
+    color: var(--white);
+    text-decoration: none;
+    transition: .3s ease-in all;
+}
+
+.login__paragraph_link:hover {
+    color: var(--purple);
+}
+
+.login__container {
+    max-inline-size: 35rem;
+}
