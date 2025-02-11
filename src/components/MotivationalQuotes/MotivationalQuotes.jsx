@@ -2,12 +2,10 @@
     import './MotivationalQuotes.css';
     import Header from '../Header/Header';
     import api from '../../utils/ThirdPartyApi';
-    import Preloader from '../Preloader/Preloades';
 
-    const MotivationalQuotes = () => {
+    const MotivationalQuotes = ({handleShowLoading, handleHideLoading}) => {
 
         const [quotes, setQuotes] = useState([]);
-        const [loading, setLoading] = useState(false);
         const [hasMore, setHasMore] = useState(true);
 
         useEffect(() => {
@@ -22,7 +20,7 @@
         }, [quotes]);
 
         const fetchQuotes = async () => {
-            setLoading(true);
+            handleShowLoading();
 
             try {
                 const newQuotes = await api.getQuotes(3);
@@ -34,7 +32,7 @@
             } catch (error) {
                 console.error('Error fetching quotes:', error);
             } finally {
-                setLoading(false);
+                handleHideLoading();
             }
         };
 
@@ -43,34 +41,28 @@
         };
 
         return (
-            <>
-                {loading ? <Preloader /> : 
-                    <main className="main">
-                        <Header>
-                            <h2 className="header__title">Frases motivacionales</h2>
-                        </Header>
-                        <section className="quotes">
-
-                            {quotes.map((quote) => (
-                                <div className="quotes__card" key={quote._id}>
-                                    <div className="quotes__header">
-                                        <p className="quotes__author">{quote.author}</p>
-                                    </div>
-                                    <div className="quotes__body">
-                                        <p className="quotes__paragraph">{quote.content}</p>
-                                    </div>
-                                </div>
-                            ))}
-                            
-                        </section>
-                        {hasMore && !loading && (
-                            <div className="quotes__load">
-                                <button onClick={handleLoadMore} className="form__button">Cargar mas</button>
+            
+            <main className="main">
+                <Header>
+                    <h2 className="header__title">Frases motivacionales</h2>
+                </Header>
+                <section className="quotes">
+                    {quotes.map((quote) => (
+                        <div className="quotes__card" key={quote._id}>
+                            <div className="quotes__header">
+                                <p className="quotes__author">{quote.author}</p>
                             </div>
-                        )}
-                    </main>
-                }
-            </>
+                            <div className="quotes__body">
+                                <p className="quotes__paragraph">{quote.content}</p>
+                            </div>
+                        </div>
+                    ))}
+                </section>
+                <div className="quotes__load">
+                    <button onClick={handleLoadMore} className="form__button">Cargar mas</button>
+                </div>
+            </main>
+                
         );
     }
 

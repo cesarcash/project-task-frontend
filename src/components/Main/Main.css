@@ -8,13 +8,17 @@
 .main__body {
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: repeat(2 1fr);
-    grid-template-areas: "todo" "done";
+    grid-template-rows: repeat(3 1fr);
+    grid-template-areas: "pending" "progress" "completed";
     padding: 1rem 3rem;
 }
 
-.main__todo {
-    grid-area: todo;
+.main__pending {
+    grid-area: pending;
+}
+
+.main__progress {
+    grid-area: progress;
 }
 
 .main__body-title {
@@ -31,16 +35,23 @@
     inline-size: .5rem;
     aspect-ratio: 1;
     display: inline-block;
-    background-color: var(--purple);
     border-radius: 50%;
 }
 
-.main__body-title--highlighted::before {
+.main__body-title--pending::before {
+    background-color: var(--purple);
+}
+
+.main__body-title--doing::before {
+    background-color: var(--yellow);
+}
+
+.main__body-title--completed::before {
     background-color: var(--green);
 }
 
-.main__done {
-    grid-area: done;
+.main__completed {
+    grid-area: completed;
 }
 
 .main__task {
@@ -71,20 +82,16 @@
     margin: 0;
 }
 
-/* @media screen and (min-width: 480px){
-    .main__header {
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-    }
-} */
+@media screen and (min-width: px){
+
+}
 
 @media screen and (min-width: 1024px){
     .main__body {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(3, 1fr);
         grid-template-rows: auto;
-        grid-template-areas: "todo done";
-        gap: 3rem;
+        grid-template-areas: "pending progress completed";
+        gap: 1rem;
         padding: 2rem 3rem;
     }
     .main__task {

@@ -47,3 +47,9 @@
 .form__button:hover {
     cursor: pointer;
 }
+
+.form__button--icon-button {
+    align-self: flex-start;
+    background-color: transparent;
+    padding: initial;
+}
