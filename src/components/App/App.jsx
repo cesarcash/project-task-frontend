@@ -8,8 +8,8 @@ import Settings from '../Settings/Settings'
 import PageNotFound from '../PageNotFound/PageNotFound'
 import MotivationalQuotes from '../MotivationalQuotes/MotivationalQuotes'
 import Preloader from '../Preloader/Preloader'
-import Register from '../Register/Register'
-import Login from '../Login/Login'
+import Signup from '../Signup/Signup'
+import Signin from '../Signin/Signin'
 import HomeTemplate from '../HomeTemplate/HomeTemplate'
 
 function App() {
@@ -32,8 +32,8 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/settings" element={<Settings />} />
         </Route>
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+        <Route path="/signin" element={<Signin />} />
+        <Route path="/signup" element={<Signup />} />
       </Routes>
     </>
   );

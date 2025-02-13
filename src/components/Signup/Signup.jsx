@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRightToBracket } from '@fortawesome/free-solid-svg-icons';
 
-const Login = () => {
+const Signup = () => {
 
     return (
 
@@ -23,7 +23,7 @@ const Login = () => {
                 <div className="form__row">
                     <button className='form__button' type="submit"><FontAwesomeIcon icon={faRightToBracket} /> Registrar</button>
                 </div>
-                <p className="login__paragraph login__paragraph--small">¿Ya eres miembro? Inicia sesión <NavLink to="/login" className="login__paragraph_link">aquí</NavLink></p>
+                <p className="login__paragraph login__paragraph--small">¿Ya eres miembro? Inicia sesión <NavLink to="/signin" className="login__paragraph_link">aquí</NavLink></p>
             </form>                
         </div>
         
@@ -31,4 +31,4 @@ const Login = () => {
 
 }
 
-export default Login;
+export default Signup;
