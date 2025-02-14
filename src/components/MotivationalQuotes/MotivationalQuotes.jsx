@@ -1,12 +1,14 @@
-    import { useState, useEffect } from 'react';
+    import { useState, useEffect, useContext } from 'react';
     import './MotivationalQuotes.css';
     import Header from '../Header/Header';
     import api from '../../utils/ThirdPartyApi';
+    import LoadingContext from '../../context/LoadingContext';
 
-    const MotivationalQuotes = ({handleShowLoading, handleHideLoading}) => {
+    const MotivationalQuotes = () => {
 
         const [quotes, setQuotes] = useState([]);
         const [hasMore, setHasMore] = useState(true);
+        const loading = useContext(LoadingContext);
 
         useEffect(() => {
             const storedQuotes = JSON.parse(localStorage.getItem('quotes')) || [];
@@ -20,7 +22,7 @@
         }, [quotes]);
 
         const fetchQuotes = async () => {
-            handleShowLoading();
+            loading.showLoading();
 
             try {
                 const newQuotes = await api.getQuotes(3);
@@ -32,7 +34,7 @@
             } catch (error) {
                 console.error('Error fetching quotes:', error);
             } finally {
-                handleHideLoading();
+                loading.hideLoading();
             }
         };
 
