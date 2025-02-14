@@ -1,0 +1,29 @@
+.popup {
+    max-inline-size: 27rem;
+    padding: 1rem;
+    background-color: var(--gray);
+}
+
+.popup__header {
+    border-block-end: 1px solid var(--dark-gray);
+}
+
+.popup__title {
+
+}
+
+.popup__body {
+
+}
+
+.popup__footer {
+
+}
+
+.popup__button {
+
+}
+
+.popup__icon--close {
+    
+}
