@@ -1,13 +1,40 @@
+import { useContext } from 'react';
 import Header from '../Header/Header';
+import PopupContext from "../../context/PopupContext";
 
 import './Main.css';
 
 const Main = () => {
+
+    const {openPopup} = useContext(PopupContext);
+
+    const handleAddTask = () => {
+        openPopup('Nueva tarea', (
+            <form className="form">
+                <div className="form__row">
+                    <label htmlFor="titulo" className="form__label">Título de la tarea</label>
+                    <input type="text" id="titulo" className="form__input" name="title" required />
+                </div>
+                <div className="form__row">
+                    <label htmlFor="descripcion" className="form__label">Descripción</label>
+                    <textarea className="form__input" id="descripcion" name="description" required></textarea>
+                </div>
+                <div className="form__row">
+                    <label htmlFor="date" className="form__label">Fecha de término</label>
+                    <input type="date" className="form__input" id="date" name="endDate" />
+                </div>
+                <div className="form__row">
+                    <button className="form__button form__button--add-task" type="submit">Añadir tarea</button>
+                </div>
+            </form>
+        ));
+    }
+
     return (
         <main className="main">
             <Header>
                 <h2 className="header__title">Mis tareas</h2>
-                <button className="form__button">Añadir tarea</button>
+                <button className="form__button" onClick={handleAddTask}>Añadir tarea</button>
             </Header>
             <section className="main__body">
                 <div className="main__pending">

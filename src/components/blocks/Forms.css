@@ -17,10 +17,9 @@
 
 .form__label {
     display: block;
-    font-family: 'Open Bold';
+    font-family: 'Open Regular';
     font-size: .9rem;
     color: var(--light-gray);
-    color: var(--white);
 }
 
 .form__input {
@@ -31,7 +30,8 @@
     background-color: transparent;
     padding: .5rem 1rem;
     color: var(--white);
-    font-family: 'Open Bold';
+    font-family: 'Open Regular';
+    letter-spacing: 1px;
     font-size: .8rem;
 }
 
@@ -47,6 +47,11 @@
 
 .form__button:hover {
     cursor: pointer;
+}
+
+.form__button--add-task {
+    margin-block-start: .5rem;
+    align-self: flex-end;
 }
 
 .form__button--icon-button {

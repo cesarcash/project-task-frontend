@@ -2,16 +2,24 @@ import { useContext } from "react";
 import { Outlet } from "react-router-dom";
 import Aside from "../Aside/Aside";
 import Footer from "../Footer/Footer";
-import LoadingContext from "../../context/LoadingContext";
 import Preloader from "../Preloader/Preloader";
+import LoadingContext from "../../context/LoadingContext";
+import PopupContext from "../../context/PopupContext";
+import Popup from "../Popup/Popup";
 
 const HomeTemplate = () => {
-
+    
     const loading = useContext(LoadingContext);
-
+    const popup = useContext(PopupContext);
+    
     return (
         <div className="page">
             {loading.isLoading && (<Preloader></Preloader>)}
+            {popup.isPopupOpen && (
+                <Popup onClose={() => popup.setPopupOpen(false)} title={popup.popupTitle}>
+                    {popup.popupContent}     
+                </Popup>
+            )}
             <Aside></Aside>
             <Outlet></Outlet>
             <Footer></Footer>
