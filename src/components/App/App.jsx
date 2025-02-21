@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, Navigate } from 'react-router-dom'
 import LoadingContext from '../../context/LoadingContext'
 import { PopupProvider } from '../../context/PopupContext'
 
@@ -12,10 +12,12 @@ import MotivationalQuotes from '../MotivationalQuotes/MotivationalQuotes'
 import Signup from '../Signup/Signup'
 import Signin from '../Signin/Signin'
 import HomeTemplate from '../HomeTemplate/HomeTemplate'
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 
 function App() {
 
   const [isLoading, setLoading] = useState(false);
+  const [isLoggedIn, setLoggedIn] = useState(true);
   const [isPopupOpen, setPopupOpen] = useState(false);
   const showLoading = () => setLoading(true);
   const hideLoading = () => setLoading(false);
@@ -24,9 +26,20 @@ function App() {
     <LoadingContext.Provider value={{isLoading, showLoading, hideLoading}}>
       <PopupProvider value={{isPopupOpen, setPopupOpen}}>
         <Routes>
-          <Route path="*" element={<PageNotFound />} />
+          {/* <Route path="*" element={<PageNotFound />} /> */}
+          <Route path="*" element={
+            isLoggedIn ? (
+              <Navigate to="/" />
+            ) : (
+              <Navigate to="/signin" />
+            )
+          } />
           <Route path="/" element={<HomeTemplate />} >
-            <Route path="/" element={<Dashboard />}/>
+            <Route path="/" element={
+              <ProtectedRoute isLoggedIn={isLoggedIn}>
+                <Dashboard />
+              </ProtectedRoute>
+            }/>
             <Route path="/my-task" element={<Main />} />
             <Route path="/quotes" element={<MotivationalQuotes />} />
             <Route path="/profile" element={<Profile />} />
