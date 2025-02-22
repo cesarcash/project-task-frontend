@@ -21,15 +21,15 @@ const Settings = () => {
                 <form className="form">
                     <div className="form__row">
                         <label className="form__label" htmlFor="nombre">Nombre de usuario</label>
-                        <input className="form__input" type="text" id="nombre" required />
+                        <input className="form__input" type="text" name="name" id="nombre" required />
                     </div>
                     <div className="form__row">
                         <label className="form__label" htmlFor="avatar">Avatar</label>
-                        <input className="form__input" type="url" id="avatar" required />
+                        <input className="form__input" type="url" name="avatar" id="avatar" required />
                     </div>
                     <div className="form__row">
                         <label className="form__label" htmlFor="password">Contraseña</label>
-                        <input className="form__input" type={inputType} id="password" required />
+                        <input className="form__input" type={inputType} name="password" id="password" required />
                     </div>
                     <div className="form__row">
                         <button onClick={inputToggleType} className="form__button form__button--icon-button">

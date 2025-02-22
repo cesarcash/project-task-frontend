@@ -42,6 +42,30 @@ class Api {
 
     }
 
+    async getUser(){
+        return await this._makeRequest('/users/me');
+    }
+
+    async updateUser({name,email,password}){
+        return await this._makeRequest('/users/me', 'PATCH', {name,email,password});
+    }
+
+    async getTasks(){
+        return await this._makeRequest('/tasks');
+    }
+
+    async createTask(data){
+        return await this._makeRequest('/tasks', 'POST', data);
+    }
+
+    async updateTask(id, data){
+        return await this._makeRequest(`/tasks/${id}`, 'PUT', data);
+    }
+
+    async deleteTask(id){
+        return await this._makeRequest(`/tasks/${id}`, 'DELETE');
+    }
+
     async signin(data){
         return await this._makeRequest('/signin', 'POST', data);
     }
@@ -52,7 +76,7 @@ class Api {
 
 }
 
-const auth = new Api({
+const api = new Api({
     headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json'
@@ -60,4 +84,4 @@ const auth = new Api({
     url: API_BACKEND
 });
 
-export default auth;
+export default api;

@@ -13,7 +13,7 @@ import Signup from '../Signup/Signup'
 import Signin from '../Signin/Signin'
 import HomeTemplate from '../HomeTemplate/HomeTemplate'
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
-import auth from '../../utils/auth'
+import api from '../../utils/MainApi'
 
 function App() {
 
@@ -28,7 +28,7 @@ function App() {
 
   const handleRegistration = async ({name, email, password}) => {
 
-    const res = await auth.signup({name, email, password});
+    const res = await api.signup({name, email, password});
     console.log("🚀 ~ handleRegistration ~ res:", res)
 
     // if(res.data){
@@ -43,7 +43,7 @@ function App() {
 
     try {
       
-      const res = await auth.signin({email, password});
+      const res = await api.signin({email, password});
       console.log("🚀 ~ handleLogin ~ res:", res)
       if(res.token){
         navigate('/');
