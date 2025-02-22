@@ -1,0 +1,100 @@
+.main {
+    grid-area: content;
+    background-color: var(--black);
+    block-size: calc(100vh - 3.1rem);
+    overflow-y: auto;
+}
+
+.main__body {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(3 1fr);
+    grid-template-areas: "pending" "progress" "completed";
+    padding: 1rem 3rem;
+}
+
+.main__pending {
+    grid-area: pending;
+}
+
+.main__progress {
+    grid-area: progress;
+}
+
+.main__body-title {
+    margin: 0;
+    margin-block-end: 1rem;
+    color: var(--light-gray);
+    font-size: .75rem;
+    font-family: 'Open Bold';
+}
+
+.main__body-title::before {
+    content: '';
+    margin-inline-end: .5rem;
+    inline-size: .5rem;
+    aspect-ratio: 1;
+    display: inline-block;
+    border-radius: 50%;
+}
+
+.main__body-title--pending::before {
+    background-color: var(--purple);
+}
+
+.main__body-title--doing::before {
+    background-color: var(--yellow);
+}
+
+.main__body-title--completed::before {
+    background-color: var(--green);
+}
+
+.main__completed {
+    grid-area: completed;
+}
+
+.main__task {
+    padding: 1rem;
+    background: var(--gray);
+    margin-block-end: 1rem;
+}
+
+.main__task-title {
+    margin: 0;
+    color: var(--white);
+    font-weight: 500;
+    font-size: .85rem;
+    font-family: 'Open Bold';
+}
+
+.main__task-description {
+    font-size: .85rem;
+    line-height: 1.25rem;
+    color: var(--light-gray);
+    font-family: 'Open Light';
+}
+
+.main__task-date {
+    color: var(--light-gray);
+    font-size: .65rem;
+    font-family: 'Open Bold';
+    margin: 0;
+}
+
+@media screen and (min-width: px){
+
+}
+
+@media screen and (min-width: 1024px){
+    .main__body {
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: auto;
+        grid-template-areas: "pending progress completed";
+        gap: 1rem;
+        padding: 2rem 3rem;
+    }
+    .main__task {
+        padding: 1.5rem;
+    }
+}

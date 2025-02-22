@@ -1,8 +1,20 @@
-# React + Vite
+# Proyecto final
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Aplicación Full Stack administrador de tareas
 
-Currently, two official plugins are available:
+### Objetivo del proyecto
+Creación de una mini aplicación para la gestión de tareas. El usuario podrá dar de alta cuantas tareas necesite cuando finalice una tarea la aplicación dara una frase random motivacional. Se podrá registrar cuantos usuarios se requiera solamente el usuario loggeado podrá visualizar sus tareas.
+El poryecto podrá escalar como un panel administrativo
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Tecnologías del proyecto 
+- React
+- Express
+- MongoDB
+- JWT
+
+### Primera parte del proyecto
+
+- Implementación de React
+- Creación de diseño HTML5 y CSS3 (Grid layout, flexbox, HTML Semántico, Mobil first, Responsive Web Design)
+- Conexión con API Quotable 
+- Creación de modulos
