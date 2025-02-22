@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Routes, Route, Navigate } from 'react-router-dom'
+import { Routes, Route, Navigate, useNavigate } from 'react-router-dom'
 import LoadingContext from '../../context/LoadingContext'
 import { PopupProvider } from '../../context/PopupContext'
 
@@ -13,14 +13,50 @@ import Signup from '../Signup/Signup'
 import Signin from '../Signin/Signin'
 import HomeTemplate from '../HomeTemplate/HomeTemplate'
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
+import auth from '../../utils/auth'
 
 function App() {
 
+  const [userData, setUserData] = useState({name: '', email: ''})
   const [isLoading, setLoading] = useState(false);
-  const [isLoggedIn, setLoggedIn] = useState(true);
+  const [isLoggedIn, setLoggedIn] = useState(false);
   const [isPopupOpen, setPopupOpen] = useState(false);
   const showLoading = () => setLoading(true);
   const hideLoading = () => setLoading(false);
+
+  const navigate = useNavigate();
+
+  const handleRegistration = async ({name, email, password}) => {
+
+    const res = await auth.signup({name, email, password});
+    console.log("🚀 ~ handleRegistration ~ res:", res)
+
+    // if(res.data){
+    //   navigate('/signin');
+    // }
+
+  }
+
+  const handleLogin = async ({email, password}) => {
+
+    if(!email || !password) return;
+
+    try {
+      
+      const res = await auth.signin({email, password});
+      console.log("🚀 ~ handleLogin ~ res:", res)
+      if(res.token){
+        navigate('/');
+        setLoggedIn(true)
+        // setUserData({})
+      }
+
+    }catch(err){
+      console.log("🚀 ~ handleLogin ~ err:", err)
+    }
+    
+
+  }
 
   return (
     <LoadingContext.Provider value={{isLoading, showLoading, hideLoading}}>
@@ -45,8 +81,8 @@ function App() {
             <Route path="/profile" element={<Profile />} />
             <Route path="/settings" element={<Settings />} />
           </Route>
-          <Route path="/signin" element={<Signin />} />
-          <Route path="/signup" element={<Signup />} />
+          <Route path="/signin" element={<Signin handleLogin={handleLogin} />} />
+          <Route path="/signup" element={<Signup handleRegistration={handleRegistration} />} />
         </Routes>
       </PopupProvider>
     </LoadingContext.Provider>

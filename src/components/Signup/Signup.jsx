@@ -4,10 +4,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRightToBracket } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
 
-const Signup = () => {
+const Signup = ({handleRegistration}) => {
 
     const [data, setData] = useState({
-        nombre: '',
+        name: '',
         email: '',
         password: ''
     });
@@ -20,14 +20,19 @@ const Signup = () => {
         }));
     };
 
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        handleRegistration(data);
+    }
+
     return (
 
         <div className="login">
             <h1 className="login__title">App Task</h1>
-            <form className="form form--login">
+            <form className="form form--login" onSubmit={handleSubmit}>
                 <p className="login__paragraph">Registro</p>
                 <div className="form__row">
-                    <input type="text" className="form__input" name="nombre" value={data.nombre} placeholder="Nombre de usuario" required onChange={handleChange} />
+                    <input type="text" className="form__input" name="name" value={data.nombre} placeholder="Nombre de usuario" required onChange={handleChange} />
                 </div>
                 <div className="form__row">
                     <input type="email" className="form__input" name="email" value={data.email} placeholder="Email" required onChange={handleChange} />

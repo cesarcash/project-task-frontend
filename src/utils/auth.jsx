@@ -54,6 +54,7 @@ class Api {
 
 const auth = new Api({
     headers: {
+        Accept: 'application/json',
         'Content-Type': 'application/json'
     },
     url: API_BACKEND
