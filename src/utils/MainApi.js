@@ -36,42 +36,46 @@ class Api {
             return await res.json();
 
         }catch(error){
-            console.error(`Error en signup: ${error.message}`);
+            console.error(`Error en ${method} ${endpoint}: ${error.message}`);
             throw error;
         }
 
     }
 
-    async getUser(){
-        return await this._makeRequest('/users/me');
+    // async getUser(){
+    //     return this._makeRequest('/users/me');
+    // }
+
+    async getUserInfo(){
+        return this._makeRequest('/users/me');
     }
 
     async updateUser({name,email,password}){
-        return await this._makeRequest('/users/me', 'PATCH', {name,email,password});
+        return this._makeRequest('/users/me', 'PATCH', {name,email,password});
     }
 
     async getTasks(){
-        return await this._makeRequest('/tasks');
+        return this._makeRequest('/tasks');
     }
 
     async createTask(data){
-        return await this._makeRequest('/tasks', 'POST', data);
+        return this._makeRequest('/tasks', 'POST', data);
     }
 
     async updateTask(id, data){
-        return await this._makeRequest(`/tasks/${id}`, 'PUT', data);
+        return this._makeRequest(`/tasks/${id}`, 'PUT', data);
     }
 
     async deleteTask(id){
-        return await this._makeRequest(`/tasks/${id}`, 'DELETE');
+        return this._makeRequest(`/tasks/${id}`, 'DELETE');
     }
 
     async signin(data){
-        return await this._makeRequest('/signin', 'POST', data);
+        return this._makeRequest('/signin', 'POST', data);
     }
 
     async signup(data){
-        return await this._makeRequest('/signup', 'POST', data);
+        return this._makeRequest('/signup', 'POST', data);
     }
 
 }

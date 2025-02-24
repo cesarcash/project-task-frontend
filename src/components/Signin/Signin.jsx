@@ -21,6 +21,7 @@ const Sigin = ({ handleLogin }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        // console.log(data);
         handleLogin(data);
     }
 
@@ -31,10 +32,10 @@ const Sigin = ({ handleLogin }) => {
             <form className="form form--login" onSubmit={handleSubmit}>
                 <p className="login__paragraph">Inicio de sesión</p>
                 <div className="form__row">
-                    <input type="email" className="form__input" placeholder="Email" required onChange={handleChange} />
+                    <input type="email" className="form__input" name="email" placeholder="Email" required onChange={handleChange} />
                 </div>
                 <div className="form__row">
-                    <input type="password" className="form__input" placeholder="Password" required onChange={handleChange} />
+                    <input type="password" className="form__input" name="password" placeholder="Password" required onChange={handleChange} />
                 </div>
                 <div className="form__row">
                     <button className='form__button' type="submit"><FontAwesomeIcon icon={faRightToBracket} /> Ingresar</button>

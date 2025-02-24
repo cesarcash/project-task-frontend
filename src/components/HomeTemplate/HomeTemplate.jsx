@@ -7,7 +7,7 @@ import LoadingContext from "../../context/LoadingContext";
 import PopupContext from "../../context/PopupContext";
 import Popup from "../Popup/Popup";
 
-const HomeTemplate = () => {
+const HomeTemplate = ({signOut}) => {
     
     const loading = useContext(LoadingContext);
     const popup = useContext(PopupContext);
@@ -20,7 +20,7 @@ const HomeTemplate = () => {
                     {popup.popupContent}     
                 </Popup>
             )}
-            <Aside></Aside>
+            <Aside signOut={signOut}></Aside>
             <Outlet></Outlet>
             <Footer></Footer>
         </div>
