@@ -3,12 +3,12 @@ import { Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-
 import LoadingContext from '../../context/LoadingContext'
 import CurrentUserContext from '../../context/CurrentUserContext'
 import { PopupProvider } from '../../context/PopupContext'
+import { ToastContainer, toast } from 'react-toastify';
 
 import Main from '../Main/Main'
 import Dashboard from '../Dashboard/Dashboard'
 import Profile from '../Profile/Profile'
 import Settings from '../Settings/Settings'
-import PageNotFound from '../PageNotFound/PageNotFound'
 import MotivationalQuotes from '../MotivationalQuotes/MotivationalQuotes'
 import Signup from '../Signup/Signup'
 import Signin from '../Signin/Signin'
@@ -20,7 +20,6 @@ import { setToken, getToken, removeToken } from '../../utils/token'
 function App() {
 
   const [currentUser, setCurrentUser] = useState({name: '', email: '', avatar: ''});
-  const [userData, setUserData] = useState({})
   const [isLoading, setLoading] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isPopupOpen, setPopupOpen] = useState(false);
@@ -65,6 +64,34 @@ function App() {
 
     }catch(err){
       console.log("🚀 ~ handleLogin ~ err:", err)
+    }
+
+  }
+
+  const handleNewTask = async ({title, description, endDate}) => {
+
+    if(!title || !description || !endDate) return;
+
+    try {
+
+      const res = await api.createTask({title, description, endDate});
+      if(res.data){
+
+        toast.success('Se añadió la tarea', {
+          position: 'bottom-center',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+
+      }
+
+    }catch(err){
+      console.log("🚀 ~ handleNewTask ~ err:", err)
     }
 
   }
@@ -117,7 +144,7 @@ function App() {
               }/>
               <Route path="/my-task" element={
                 <ProtectedRoute isLoggedIn={isLoggedIn}>
-                  <Main />
+                  <Main handleNewTask={handleNewTask} />
                 </ProtectedRoute>
               }/>
               <Route path="/quotes" element={
@@ -147,6 +174,18 @@ function App() {
               </ProtectedRoute>
             }/>
           </Routes>
+          <ToastContainer 
+            position="bottom-center"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick={false}
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"
+           />
         </PopupProvider>
       </LoadingContext.Provider>
     </CurrentUserContext.Provider>
