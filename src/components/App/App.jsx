@@ -23,6 +23,8 @@ function App() {
   const [isLoading, setLoading] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isPopupOpen, setPopupOpen] = useState(false);
+  const [tasks, setTasks] = useState([]);
+
   const showLoading = () => setLoading(true);
   const hideLoading = () => setLoading(false);
 
@@ -37,12 +39,25 @@ function App() {
 
   const handleRegistration = async ({name, email, password}) => {
 
-    const res = await api.signup({name, email, password});
-    console.log("🚀 ~ handleRegistration ~ res:", res)
-
-    // if(res.data){
-    //   navigate('/signin');
-    // }
+    try {
+      const res = await api.signup({ name, email, password });
+      if(res.data){
+        navigate('/signin')
+        toast.success('Registro exitoso', {
+          position: 'bottom-center',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }
+    } catch (err) {
+      console.error("Error en el registro:", err.message);
+      throw err;
+    }
 
   }
 
@@ -76,7 +91,7 @@ function App() {
 
       const res = await api.createTask({title, description, endDate});
       if(res.data){
-
+        setPopupOpen(false);
         toast.success('Se añadió la tarea', {
           position: 'bottom-center',
           autoClose: 5000,
@@ -96,27 +111,42 @@ function App() {
 
   }
 
-  useEffect(() => {
-    
-    const fetchUserInfo = async () => {
+  const fetchUserInfo = async () => {
 
-      try {
+    try {
 
-        const res = await api.getUserInfo();
-        setIsLoggedIn(true)
-        setCurrentUser({name: res.name, email: res.email, avatar: res.avatar})
-        // navigate('/');
+      const res = await api.getUserInfo();
+      setIsLoggedIn(true)
+      setCurrentUser({name: res.name, email: res.email, avatar: res.avatar})
 
-      }catch(err){
-        console.error("Error al obtener la información del usuario: ",err);
+    }catch(err){
+      console.error("Error al obtener la información del usuario: ",err);
+    }
+
+  }
+
+  const fetchUserTasks = async () => {
+
+    try {
+
+      const res = await api.getTasks();
+      if(res.data){
+        setTasks(res.data);
       }
 
+    }catch(err){
+      console.log("🚀 ~ fetchUserTasks ~ err:", err)
     }
+
+  }
+
+  useEffect(() => {  
     
     const jwt = getToken();
 
     if(jwt){
       fetchUserInfo();
+      fetchUserTasks()
     }else{
       navigate('/signin')
     }
@@ -126,7 +156,7 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <LoadingContext.Provider value={{isLoading, showLoading, hideLoading}}>
-        <PopupProvider value={{isPopupOpen, setPopupOpen}}>
+        <PopupProvider isPopupOpen={isPopupOpen} setPopupOpen={setPopupOpen}>
           <Routes>
             {/* <Route path="*" element={<PageNotFound />} /> */}
             <Route path="*" element={
@@ -144,7 +174,7 @@ function App() {
               }/>
               <Route path="/my-task" element={
                 <ProtectedRoute isLoggedIn={isLoggedIn}>
-                  <Main handleNewTask={handleNewTask} />
+                  <Main handleNewTask={handleNewTask} tasks={tasks} />
                 </ProtectedRoute>
               }/>
               <Route path="/quotes" element={

@@ -17,7 +17,6 @@ const Sigin = ({ handleLogin }) => {
             ...prevData,
             [name]: value
         }));
-        console.log(data);
     };
 
     const handleSubmit = (e) => {

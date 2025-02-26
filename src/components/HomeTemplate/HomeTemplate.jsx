@@ -16,7 +16,7 @@ const HomeTemplate = ({signOut}) => {
         <div className="page">
             {loading.isLoading && (<Preloader></Preloader>)}
             {popup.isPopupOpen && (
-                <Popup onClose={() => popup.setPopupOpen(false)} title={popup.popupTitle}>
+                <Popup onClose={popup.closePopup} title={popup.popupTitle}>
                     {popup.popupContent}     
                 </Popup>
             )}
