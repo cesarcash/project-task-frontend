@@ -75,6 +75,13 @@
     font-family: 'Open Light';
 }
 
+.main__task-date-container {
+    display: flex;
+    gap: 1rem;
+    flex-direction: column;
+    margin-bottom: 1.5rem;
+}
+
 .main__task-date {
     color: var(--light-gray);
     font-size: .65rem;
@@ -82,8 +89,41 @@
     margin: 0;
 }
 
-@media screen and (min-width: px){
+.main__task-date-actions {
+    display: flex;
+    gap: 1rem;
+    flex-direction: column;
+}
 
+.main__button {
+    background-color: transparent;
+    border: none;
+    font-size: .6rem;
+    color: var(--white);
+    cursor: pointer;
+    border-radius: .25rem;
+    display: block;
+    padding: .25rem .5rem;
+    font-family: 'Open Bold';
+}
+
+.main__button--start {
+    background-color: var(--purple);
+}
+
+.main__button--cancel {
+    background-color: var(--red);
+}
+
+@media screen and (min-width: 522px){
+    .main__task-date-container {
+        justify-content: space-between;
+        flex-direction: row;
+    }
+    .main__task-date-actions {
+        justify-content: space-between;
+        flex-direction: row;
+    }
 }
 
 @media screen and (min-width: 1024px){

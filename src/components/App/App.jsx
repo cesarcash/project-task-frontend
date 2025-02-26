@@ -24,12 +24,56 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isPopupOpen, setPopupOpen] = useState(false);
   const [tasks, setTasks] = useState([]);
+  const [apiToken, setApiToken] = useState(getToken || '');
 
   const showLoading = () => setLoading(true);
   const hideLoading = () => setLoading(false);
 
   const navigate = useNavigate();
   const location = useLocation();
+
+  useEffect(() => {
+
+    const fetchUserInfo = async () => {
+
+      try {
+  
+        const res = await api.getUserInfo();
+        setIsLoggedIn(true)
+        setCurrentUser({name: res.name, email: res.email, avatar: res.avatar})
+  
+      }catch(err){
+        console.error("Error al obtener la información del usuario: ",err);
+      }
+  
+    }
+  
+    const fetchUserTasks = async () => {
+  
+      try {
+  
+        const res = await api.getTasks();
+        if(res.data){
+          setTasks(res.data);
+        }
+  
+      }catch(err){
+        console.log("🚀 ~ fetchUserTasks ~ err:", err)
+      }
+  
+    }
+    
+    const jwt = getToken();
+
+    if(jwt){
+      fetchUserInfo();
+      fetchUserTasks();
+      setApiToken(jwt);
+    }else{
+      navigate('/signin')
+    }
+
+  },[apiToken])
 
   const signOut = () => {
     removeToken();
@@ -69,6 +113,7 @@ function App() {
       
       const res = await api.signin({email, password});
       if(res.token){
+        setApiToken(res.token);
         setToken(res.token);
         setIsLoggedIn(true)
         setCurrentUser({name: res.data.name, email: res.data.email, avatar: res.data.avatar})
@@ -91,6 +136,7 @@ function App() {
 
       const res = await api.createTask({title, description, endDate});
       if(res.data){
+        setTasks([res.data, ...tasks])
         setPopupOpen(false);
         toast.success('Se añadió la tarea', {
           position: 'bottom-center',
@@ -110,48 +156,6 @@ function App() {
     }
 
   }
-
-  const fetchUserInfo = async () => {
-
-    try {
-
-      const res = await api.getUserInfo();
-      setIsLoggedIn(true)
-      setCurrentUser({name: res.name, email: res.email, avatar: res.avatar})
-
-    }catch(err){
-      console.error("Error al obtener la información del usuario: ",err);
-    }
-
-  }
-
-  const fetchUserTasks = async () => {
-
-    try {
-
-      const res = await api.getTasks();
-      if(res.data){
-        setTasks(res.data);
-      }
-
-    }catch(err){
-      console.log("🚀 ~ fetchUserTasks ~ err:", err)
-    }
-
-  }
-
-  useEffect(() => {  
-    
-    const jwt = getToken();
-
-    if(jwt){
-      fetchUserInfo();
-      fetchUserTasks()
-    }else{
-      navigate('/signin')
-    }
-
-  },[])
 
   return (
     <CurrentUserContext.Provider value={currentUser}>

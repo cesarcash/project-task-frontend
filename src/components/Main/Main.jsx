@@ -1,8 +1,10 @@
 import { useContext, useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPlay, faTrash } from '@fortawesome/free-solid-svg-icons';
+import moment from 'moment';
 import Header from '../Header/Header';
 import PopupContext from "../../context/PopupContext";
 import TaskForm from '../TaskForm/TaskForm';
-import moment from 'moment';
 
 import './Main.css';
 
@@ -26,14 +28,24 @@ const Main = ({handleNewTask,tasks}) => {
                     {
                         tasks.map(task => {
                             task.endDate = moment(task.endDate).format('YYYY-MM-DD');
+                            task.createdAt = moment(task.createdAt).format('YYYY-MM-DD');
+
                             return(
                                 <div className="main__task" key={task._id}>
                                     <p className="main__task-title">{task.title}</p>
                                     <p className="main__task-description">{task.description}</p>
-                                    <p className="main__task-date">{task.endDate}</p>
+                                    <div className="main__task-date-container">
+                                        <p className="main__task-date">Fecha de registro: {task.createdAt}</p>
+                                        <p className="main__task-date">Fecha de término: {task.endDate}</p>
+                                    </div>
+                                    <div className="main__task-date-actions">
+                                        <button className="main__button main__button--start"><FontAwesomeIcon icon={faPlay} /> Iniciar tarea</button>
+                                        <button className="main__button main__button--cancel"><FontAwesomeIcon icon={faTrash} /> Eliminar tarea</button>
+                                    </div>
                                 </div>
                             )
                         })
+
                     }
                 </div>
 
