@@ -33,35 +33,6 @@ function App() {
   const location = useLocation();
 
   useEffect(() => {
-
-    const fetchUserInfo = async () => {
-
-      try {
-  
-        const res = await api.getUserInfo();
-        setIsLoggedIn(true)
-        setCurrentUser({name: res.name, email: res.email, avatar: res.avatar})
-  
-      }catch(err){
-        console.error("Error al obtener la información del usuario: ",err);
-      }
-  
-    }
-  
-    const fetchUserTasks = async () => {
-  
-      try {
-  
-        const res = await api.getTasks();
-        if(res.data){
-          setTasks(res.data);
-        }
-  
-      }catch(err){
-        console.log("🚀 ~ fetchUserTasks ~ err:", err)
-      }
-  
-    }
     
     const jwt = getToken();
 
@@ -117,7 +88,6 @@ function App() {
         setToken(res.token);
         setIsLoggedIn(true)
         setCurrentUser({name: res.data.name, email: res.data.email, avatar: res.data.avatar})
-        // navigate('/');
         const redirectPath = location.state?.from?.pathname || '/';
         navigate(redirectPath)
       }
@@ -128,7 +98,7 @@ function App() {
 
   }
 
-  const handleNewTask = async ({title, description, endDate}) => {
+  const handleTaskNew = async ({title, description, endDate}) => {
 
     if(!title || !description || !endDate) return;
 
@@ -138,21 +108,66 @@ function App() {
       if(res.data){
         setTasks([res.data, ...tasks])
         setPopupOpen(false);
-        toast.success('Se añadió la tarea', {
-          position: 'bottom-center',
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: false,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
-
       }
 
     }catch(err){
-      console.log("🚀 ~ handleNewTask ~ err:", err)
+      console.log("🚀 ~ handleTaskNew ~ err:", err)
+    }
+
+  }
+
+  const handleTaskDelete = async (task) => {
+
+    try {
+
+      await api.deleteTask(task._id);
+      setTasks(tasks.filter(itemTask => itemTask._id !== task._id));
+
+    }catch(err){
+      console.log("🚀 ~ handleTaskDelete ~ err:", err)
+    }
+
+  }
+
+  const handleTaskStatus = async (task,{status}) => {
+
+    try {
+      const res = await api.updateTaskStatus(task._id,{status});
+      if(res.data){
+        fetchUserTasks()
+      }
+      console.log("🚀 ~ handleTaskStatus ~ res:", res)
+    }catch(err){
+      console.log("🚀 ~ handleTaskStatus ~ err:", err)
+    }
+
+  }
+
+  async function fetchUserInfo(){
+
+    try {
+
+      const res = await api.getUserInfo();
+      setIsLoggedIn(true)
+      setCurrentUser({name: res.name, email: res.email, avatar: res.avatar})
+
+    }catch(err){
+      console.error("Error al obtener la información del usuario: ",err);
+    }
+
+  }
+
+  async function fetchUserTasks(){
+
+    try {
+
+      const res = await api.getTasks();
+      if(res.data){
+        setTasks(res.data);
+      }
+
+    }catch(err){
+      console.log("🚀 ~ fetchUserTasks ~ err:", err)
     }
 
   }
@@ -178,7 +193,7 @@ function App() {
               }/>
               <Route path="/my-task" element={
                 <ProtectedRoute isLoggedIn={isLoggedIn}>
-                  <Main handleNewTask={handleNewTask} tasks={tasks} />
+                  <Main handleTaskNew={handleTaskNew} tasks={tasks} onTaskDelete={handleTaskDelete} onTaskUpdate={handleTaskStatus} />
                 </ProtectedRoute>
               }/>
               <Route path="/quotes" element={

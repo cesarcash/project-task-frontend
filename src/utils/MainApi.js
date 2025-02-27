@@ -51,7 +51,7 @@ class Api {
     }
 
     async updateUser({name,email,password}){
-        return this._makeRequest('/users/me', 'PATCH', {name,email,password});
+        return this._makeRequest('/users/me', 'PUT', {name,email,password});
     }
 
     async getTasks(){
@@ -62,8 +62,10 @@ class Api {
         return this._makeRequest('/tasks', 'POST', data);
     }
 
-    async updateTask(id, data){
-        return this._makeRequest(`/tasks/${id}`, 'PUT', data);
+    async updateTaskStatus(id, {status}){
+        console.log("🚀 ~ Api ~ updateTaskStatus ~ status:", status)
+        console.log("🚀 ~ Api ~ updateTaskStatus ~ id:", id)
+        return this._makeRequest(`/tasks/${id}`, 'PATCH', {status});
     }
 
     async deleteTask(id){

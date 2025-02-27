@@ -111,6 +111,11 @@
     background-color: var(--purple);
 }
 
+.main__button--finished {
+    background-color: var(--green);
+    color: var(--black);
+}
+
 .main__button--cancel {
     background-color: var(--red);
 }

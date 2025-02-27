@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-const TaskForm = ({handleNewTask}) => {
+const TaskForm = ({handleTaskNew}) => {
 
     const [data, setData] = useState({
         title: '',
@@ -21,7 +21,7 @@ const TaskForm = ({handleNewTask}) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        handleNewTask(data);
+        handleTaskNew(data);
     }
 
     return (
