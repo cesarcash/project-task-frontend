@@ -25,6 +25,7 @@ function App() {
   const [isPopupOpen, setPopupOpen] = useState(false);
   const [tasks, setTasks] = useState([]);
   const [apiToken, setApiToken] = useState(getToken || '');
+  const [statusTask, setStatusTask] = useState('')
 
   const showLoading = () => setLoading(true);
   const hideLoading = () => setLoading(false);
@@ -135,6 +136,7 @@ function App() {
       const res = await api.updateTaskStatus(task._id,{status});
       if(res.data){
         fetchUserTasks()
+        setStatusTask(status)
       }
       console.log("🚀 ~ handleTaskStatus ~ res:", res)
     }catch(err){
@@ -193,7 +195,7 @@ function App() {
               }/>
               <Route path="/my-task" element={
                 <ProtectedRoute isLoggedIn={isLoggedIn}>
-                  <Main handleTaskNew={handleTaskNew} tasks={tasks} onTaskDelete={handleTaskDelete} onTaskUpdate={handleTaskStatus} />
+                  <Main handleTaskNew={handleTaskNew} statusTask={statusTask} tasks={tasks} onTaskDelete={handleTaskDelete} onTaskUpdate={handleTaskStatus} />
                 </ProtectedRoute>
               }/>
               <Route path="/quotes" element={

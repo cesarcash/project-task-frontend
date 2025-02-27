@@ -31,8 +31,12 @@ class Api {
 
     }
 
-    getQuotes(num){
+    async getQuotes(num){
         return this.__makeRequest(`quotes/random?limit=${num}`);
+    }
+
+    async getQuote(){
+        return this.__makeRequest('quotes/random?limit=1')
     }
 
 }

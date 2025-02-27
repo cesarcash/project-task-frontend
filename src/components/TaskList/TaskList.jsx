@@ -24,9 +24,9 @@ const TaskList = ({ title, tasks, handleTaskUpdate, handleTaskDelete, nextStatus
                         </div>
                         <div className="main__task-date-actions">
                             {nextStatus && (
-                                // <FontAwesomeIcon icon={faCircleCheck} />
-                                // <button className={`main__button main__button--start`} onClick={() => handleTaskUpdate(task, { status: nextStatus })}>
-                                <button className={`main__button main__button--${nextStatus === 'in progress' ? 'start' : 'finished' }`} onClick={() => handleTaskUpdate(task, { status: nextStatus })}>
+                                <button className={`main__button main__button--${nextStatus === 'in progress' ? 'start' : 'finished' }`} onClick={() => {                                    
+                                    handleTaskUpdate(task, { status: nextStatus })
+                                    }}>
                                     <FontAwesomeIcon icon={nextStatus === 'in progress' ? faPlay : faCircleCheck } /> {nextStatus === "in progress" ? "Iniciar tarea" : "Finalizar tarea"}
                                 </button>
                             )}

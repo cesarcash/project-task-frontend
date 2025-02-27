@@ -4,9 +4,36 @@ import Header from '../Header/Header';
 import PopupContext from "../../context/PopupContext";
 import TaskForm from '../TaskForm/TaskForm';
 import TaskList from '../TaskList/TaskList';
+import api from '../../utils/ThirdPartyApi';
 import './Main.css';
 
-const Main = ({handleTaskNew,tasks,onTaskDelete,onTaskUpdate}) => {
+const Main = ({handleTaskNew,tasks,onTaskDelete,onTaskUpdate,statusTask}) => {
+
+    const {openPopup} = useContext(PopupContext);
+
+    const setQuoteRandom = (data) => {
+        openPopup('Felicidades!!!', 
+            <div>
+                <p>Autor: {data.author}</p>
+                <p>Frase: {data.content}</p>
+            </div>
+        )
+    }
+    
+    const fetchQuoteRandom = async () => {
+
+        try{
+            const quote = await api.getQuote();
+            setQuoteRandom(quote)
+        }catch(err){
+            console.log("🚀 ~ fetchQuoteRandom ~ err:", err)
+        }
+
+    }
+
+    if(statusTask === 'completed'){
+        fetchQuoteRandom();
+    }
 
     const formattedTasks = tasks.map(task => ({
         ...task,
@@ -14,7 +41,6 @@ const Main = ({handleTaskNew,tasks,onTaskDelete,onTaskUpdate}) => {
         createdAt: moment(task.createdAt).format("YYYY-MM-DD"),
     }));
 
-    const {openPopup} = useContext(PopupContext);
 
     const handleAddTask = () => {
         openPopup('Nueva tarea', <TaskForm handleTaskNew={handleTaskNew} />);
@@ -25,7 +51,6 @@ const Main = ({handleTaskNew,tasks,onTaskDelete,onTaskUpdate}) => {
     }
 
     const handleTaskUpdate = (task,status) => {
-        console.log('hola')
         onTaskUpdate(task,status)
     }
 
