@@ -1,10 +1,11 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import moment from 'moment';
 import Header from '../Header/Header';
 import PopupContext from "../../context/PopupContext";
 import TaskForm from '../TaskForm/TaskForm';
 import TaskList from '../TaskList/TaskList';
 import api from '../../utils/ThirdPartyApi';
+import MotivationalQuote from '../MotivationalQuote/MotivationalQuote';
 import './Main.css';
 
 const Main = ({handleTaskNew,tasks,onTaskDelete,onTaskUpdate,statusTask}) => {
@@ -12,28 +13,32 @@ const Main = ({handleTaskNew,tasks,onTaskDelete,onTaskUpdate,statusTask}) => {
     const {openPopup} = useContext(PopupContext);
 
     const setQuoteRandom = (data) => {
-        openPopup('Felicidades!!!', 
-            <div>
-                <p>Autor: {data.author}</p>
-                <p>Frase: {data.content}</p>
-            </div>
-        )
-    }
-    
-    const fetchQuoteRandom = async () => {
 
-        try{
-            const quote = await api.getQuote();
-            setQuoteRandom(quote)
-        }catch(err){
-            console.log("🚀 ~ fetchQuoteRandom ~ err:", err)
+        const quote = data[0];
+        openPopup('¡Felicidades!', <MotivationalQuote quote={quote} />)
+    }
+
+    useEffect(() => {
+
+
+        const fetchQuoteRandom = async () => {
+    
+            try{
+                const quote = await api.getQuote();
+                setQuoteRandom(quote)
+            }catch(err){
+                console.log("🚀 ~ fetchQuoteRandom ~ err:", err)
+            }
+    
         }
 
-    }
+        if(statusTask === 'completed'){
+            fetchQuoteRandom();
+        }
 
-    if(statusTask === 'completed'){
-        fetchQuoteRandom();
-    }
+    },[statusTask])
+    
+
 
     const formattedTasks = tasks.map(task => ({
         ...task,

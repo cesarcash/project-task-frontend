@@ -1,0 +1,50 @@
+.quote {
+    /* display: flex;
+    flex-direction: column;
+    gap: 1rem; */
+}
+
+.quote__author {
+    margin: 1rem 0;
+    font-family: 'Open Bold';
+    color: var(--white);
+}
+
+.quote__content {    
+    color: var(--light-gray);
+    font-style: italic;
+}
+
+.quote__actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.quote__like {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.button__like_action {
+    width: 21px;
+    height: 19px;
+    background-image: url('../images/icon__like.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-clip: padding-box;
+}
+
+.button__like_action:hover {
+    opacity: .5;
+}
+
+.button__like_action:active {
+    opacity: 1;
+    background-image: url('../images/icon__like-active.svg');
+}
+
+.button_is_active {
+    background-image: url('../images/icon__like-active.svg');
+}
