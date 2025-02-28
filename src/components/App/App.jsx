@@ -145,6 +145,18 @@ function App() {
 
   }
 
+  
+
+  const handleLikeQuote = async () => {
+    try {
+
+      // const res = 
+
+    }catch(err){
+      console.log("🚀 ~ handleLikeQuote ~ err:", err)
+    }
+  }
+
   async function fetchUserInfo(){
 
     try {

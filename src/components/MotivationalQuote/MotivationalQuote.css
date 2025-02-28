@@ -25,26 +25,19 @@
     border: none;
     cursor: pointer;
     padding: 0;
+    color: var(--light-gray);
+    transition: .2s ease-in all;
 }
 
-.button__like_action {
-    width: 21px;
-    height: 19px;
-    background-image: url('../images/icon__like.svg');
-    background-position: center;
-    background-repeat: no-repeat;
-    background-clip: padding-box;
+.quote__like:hover {
+    color: var(--white);
 }
 
-.button__like_action:hover {
-    opacity: .5;
+.quote__like:active {
+    color: var(--white);
+    transform: scale(1.3);
 }
 
-.button__like_action:active {
-    opacity: 1;
-    background-image: url('../images/icon__like-active.svg');
-}
-
-.button_is_active {
+.quote__like_is_active {
     background-image: url('../images/icon__like-active.svg');
 }

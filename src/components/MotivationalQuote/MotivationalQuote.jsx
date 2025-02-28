@@ -8,17 +8,15 @@ const MotivationalQuote = ({quote}) => {
         <div className="quote">
             <p className="quote__author">{quote.author}</p>
             <blockquote className='quote__content'>
-                <FontAwesomeIcon icon={faQuoteLeft} /> 
+                {/* <FontAwesomeIcon icon={faQuoteLeft} />  */}
                 {quote.content}
-                <FontAwesomeIcon icon={faQuoteRight} />
+                {/* <FontAwesomeIcon icon={faQuoteRight} /> */}
             </blockquote>
-            <div className="quote__actions">
-                <button className="button button_action_like " aria-label="Me gusta">
-                    {/* <FontAwesomeIcon icon={faThumbsUp} /> */}
+            {/* <div className="quote__actions">
+                <button className="quote__like" aria-label="Me gusta">
+                    <FontAwesomeIcon icon={faThumbsUp} />
                 </button>
-                <button className="quote__like button__like_action">
-                </button>
-            </div>
+            </div> */}
         </div>
     );
 

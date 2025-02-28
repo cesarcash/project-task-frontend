@@ -63,8 +63,6 @@ class Api {
     }
 
     async updateTaskStatus(id, {status}){
-        console.log("🚀 ~ Api ~ updateTaskStatus ~ status:", status)
-        console.log("🚀 ~ Api ~ updateTaskStatus ~ id:", id)
         return this._makeRequest(`/tasks/${id}`, 'PATCH', {status});
     }
 
