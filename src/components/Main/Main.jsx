@@ -8,18 +8,19 @@ import api from '../../utils/ThirdPartyApi';
 import MotivationalQuote from '../MotivationalQuote/MotivationalQuote';
 import './Main.css';
 
-const Main = ({handleTaskNew,tasks,onTaskDelete,onTaskUpdate,statusTask}) => {
+const Main = ({handleTaskNew,tasks,onTaskDelete,onTaskUpdate,statusTask,setStatusTask,handleLikeQuote}) => {
 
     const {openPopup} = useContext(PopupContext);
 
     const setQuoteRandom = (data) => {
 
         const quote = data[0];
-        openPopup('¡Felicidades!', <MotivationalQuote quote={quote} />)
+        openPopup('Haz terminado tu tarea', <MotivationalQuote quote={quote} handleLikeQuote={handleLikeQuote} />)
+        setStatusTask(false);
+
     }
 
     useEffect(() => {
-
 
         const fetchQuoteRandom = async () => {
     
@@ -29,7 +30,7 @@ const Main = ({handleTaskNew,tasks,onTaskDelete,onTaskUpdate,statusTask}) => {
             }catch(err){
                 console.log("🚀 ~ fetchQuoteRandom ~ err:", err)
             }
-    
+
         }
 
         if(statusTask === 'completed'){

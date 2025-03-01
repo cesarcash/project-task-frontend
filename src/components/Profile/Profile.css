@@ -12,6 +12,8 @@
 
 .profile__image {
     inline-size: 100%;
+    overflow: hidden;
+    border-radius: 50%;
 }
 .profile__data {
     text-align: center;
@@ -36,5 +38,8 @@
     }
     .profile__email {
         margin: 2rem 0;
+    }
+    .profile__image-wrapper {
+        max-inline-size: 8rem;
     }
 }

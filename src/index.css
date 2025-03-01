@@ -2,6 +2,7 @@
 @import url('./vendor/fonts.css');
 @import url('./components/blocks/Forms.css');
 @import url('./components/blocks/Page.css');
+@import url('./components/blocks/Error.css');
 
 :root {
   --black: #21212d;

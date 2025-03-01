@@ -42,16 +42,16 @@ class Api {
 
     }
 
-    // async getUser(){
-    //     return this._makeRequest('/users/me');
-    // }
+    async likeQuote(data){
+        return this._makeRequest('/quotes/addQuote', 'POST', data);
+    }
 
     async getUserInfo(){
         return this._makeRequest('/users/me');
     }
 
-    async updateUser({name,email,password}){
-        return this._makeRequest('/users/me', 'PUT', {name,email,password});
+    async updateUser({name,avatar,password}){
+        return this._makeRequest('/users/me', 'PUT', {name,avatar,password});
     }
 
     async getTasks(){

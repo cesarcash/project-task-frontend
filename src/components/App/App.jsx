@@ -145,12 +145,38 @@ function App() {
 
   }
 
-  
+  const handleUpdateProfile = async ({name,avatar,password}) => {
 
-  const handleLikeQuote = async () => {
+    if(!name, !avatar ) return;
+
     try {
 
-      // const res = 
+      const res = await api.updateUser({name,avatar,password});
+      if(res.data){
+        setCurrentUser(res.data)
+        toast.success('Datos guardados', {
+          position: 'bottom-center',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }
+
+    }catch(err){
+      console.log("🚀 ~ handleUpdateProfile ~ err:", err)
+    }
+
+  }
+
+  const handleLikeQuote = async (data) => {
+    try {
+
+      const res = await api.likeQuote(data);
+      console.log("🚀 ~ handleLikeQuote ~ res:", res)
 
     }catch(err){
       console.log("🚀 ~ handleLikeQuote ~ err:", err)
@@ -207,7 +233,7 @@ function App() {
               }/>
               <Route path="/my-task" element={
                 <ProtectedRoute isLoggedIn={isLoggedIn}>
-                  <Main handleTaskNew={handleTaskNew} statusTask={statusTask} tasks={tasks} onTaskDelete={handleTaskDelete} onTaskUpdate={handleTaskStatus} />
+                  <Main handleTaskNew={handleTaskNew} handleLikeQuote={handleLikeQuote} statusTask={statusTask} setStatusTask={setStatusTask} tasks={tasks} onTaskDelete={handleTaskDelete} onTaskUpdate={handleTaskStatus} />
                 </ProtectedRoute>
               }/>
               <Route path="/quotes" element={
@@ -222,7 +248,7 @@ function App() {
               }/>
               <Route path="/settings" element={
                 <ProtectedRoute isLoggedIn={isLoggedIn}>
-                  <Settings />
+                  <Settings handleUpdateProfile={handleUpdateProfile} />
                 </ProtectedRoute>
               }/>
             </Route>
