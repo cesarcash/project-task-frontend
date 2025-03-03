@@ -2,9 +2,9 @@ import { createContext, useState } from "react";
 
 const PopupContext = createContext();
 
-export const PopupProvider = ({children}) => {
+export const PopupProvider = ({children, isPopupOpen, setPopupOpen}) => {
 
-    const [isPopupOpen, setPopupOpen] = useState(false);
+    // const [isPopupOpen, setPopupOpen] = useState(false);
     const [popupTitle, setPopupTitle] = useState("");
     const [popupContent, setPopupContent] = useState(null);
 
@@ -14,8 +14,14 @@ export const PopupProvider = ({children}) => {
         setPopupOpen(true);
     }
 
+    const closePopup = () => {
+        setPopupTitle('');
+        setPopupContent(null);
+        setPopupOpen(false);
+    }
+
     return (
-        <PopupContext.Provider value={{isPopupOpen, setPopupOpen, popupTitle, popupContent, openPopup }}>
+        <PopupContext.Provider value={{isPopupOpen, popupTitle, popupContent, openPopup, closePopup }}>
             {children}
         </PopupContext.Provider>
     );

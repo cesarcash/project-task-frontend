@@ -32,8 +32,10 @@
 
 .aside__profile {
     inline-size: 2rem;
+    aspect-ratio: 1;
     border-radius: 50%;
     align-self: center;
+    object-fit: cover;
 }
 
 .aside__footer {

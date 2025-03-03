@@ -4,3 +4,42 @@
     justify-content: center;
     align-items: center;
 }
+.profile__card {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.profile__image {
+    inline-size: 100%;
+    overflow: hidden;
+    border-radius: 50%;
+}
+.profile__data {
+    text-align: center;
+}
+
+.profile__name {
+    margin: 0;
+}
+
+.profile__email {
+    margin: 1rem 0;
+}
+
+@media screen and (min-width: 1024px){
+    .profile__card {
+        flex-direction: row;
+        gap: 3rem;
+    }
+    .profile__data {
+        align-self: center;
+        text-align: initial;
+    }
+    .profile__email {
+        margin: 2rem 0;
+    }
+    .profile__image-wrapper {
+        max-inline-size: 8rem;
+    }
+}

@@ -36,23 +36,47 @@ class Api {
             return await res.json();
 
         }catch(error){
-            console.error(`Error en signup: ${error.message}`);
+            console.error(`Error en ${method} ${endpoint}: ${error.message}`);
             throw error;
         }
 
     }
 
+    async getUserInfo(){
+        return this._makeRequest('/users/me');
+    }
+
+    async updateUser({name,avatar,password}){
+        return this._makeRequest('/users/me', 'PUT', {name,avatar,password});
+    }
+
+    async getTasks(){
+        return this._makeRequest('/tasks');
+    }
+
+    async createTask(data){
+        return this._makeRequest('/tasks', 'POST', data);
+    }
+
+    async updateTaskStatus(id, {status}){
+        return this._makeRequest(`/tasks/${id}`, 'PATCH', {status});
+    }
+
+    async deleteTask(id){
+        return this._makeRequest(`/tasks/${id}`, 'DELETE');
+    }
+
     async signin(data){
-        return await this._makeRequest('/signin', 'POST', data);
+        return this._makeRequest('/signin', 'POST', data);
     }
 
     async signup(data){
-        return await this._makeRequest('/signup', 'POST', data);
+        return this._makeRequest('/signup', 'POST', data);
     }
 
 }
 
-const auth = new Api({
+const api = new Api({
     headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json'
@@ -60,4 +84,4 @@ const auth = new Api({
     url: API_BACKEND
 });
 
-export default auth;
+export default api;
