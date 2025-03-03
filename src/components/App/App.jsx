@@ -4,7 +4,6 @@ import LoadingContext from '../../context/LoadingContext'
 import CurrentUserContext from '../../context/CurrentUserContext'
 import { PopupProvider } from '../../context/PopupContext'
 import { ToastContainer, toast } from 'react-toastify';
-
 import Main from '../Main/Main'
 import Dashboard from '../Dashboard/Dashboard'
 import Profile from '../Profile/Profile'
@@ -25,7 +24,7 @@ function App() {
   const [isPopupOpen, setPopupOpen] = useState(false);
   const [tasks, setTasks] = useState([]);
   const [apiToken, setApiToken] = useState(getToken || '');
-  const [statusTask, setStatusTask] = useState('')
+  const [statusTask, setStatusTask] = useState('');
 
   const showLoading = () => setLoading(true);
   const hideLoading = () => setLoading(false);
@@ -172,17 +171,6 @@ function App() {
 
   }
 
-  const handleLikeQuote = async (data) => {
-    try {
-
-      const res = await api.likeQuote(data);
-      console.log("🚀 ~ handleLikeQuote ~ res:", res)
-
-    }catch(err){
-      console.log("🚀 ~ handleLikeQuote ~ err:", err)
-    }
-  }
-
   async function fetchUserInfo(){
 
     try {
@@ -212,6 +200,19 @@ function App() {
 
   }
 
+  async function fetchUserQuotes(){
+
+    try{
+
+      const data = await api.getQuotes();
+      console.log("🚀 ~ fetchUserQuotes ~ data:", data)
+
+    }catch(err){
+      console.log("🚀 ~ fetchUserQuotes ~ err:", err)
+    }
+
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <LoadingContext.Provider value={{isLoading, showLoading, hideLoading}}>
@@ -233,12 +234,12 @@ function App() {
               }/>
               <Route path="/my-task" element={
                 <ProtectedRoute isLoggedIn={isLoggedIn}>
-                  <Main handleTaskNew={handleTaskNew} handleLikeQuote={handleLikeQuote} statusTask={statusTask} setStatusTask={setStatusTask} tasks={tasks} onTaskDelete={handleTaskDelete} onTaskUpdate={handleTaskStatus} />
+                  <Main handleTaskNew={handleTaskNew} statusTask={statusTask} setStatusTask={setStatusTask} tasks={tasks} onTaskDelete={handleTaskDelete} onTaskUpdate={handleTaskStatus} />
                 </ProtectedRoute>
               }/>
               <Route path="/quotes" element={
                 <ProtectedRoute isLoggedIn={isLoggedIn}>
-                  <MotivationalQuotes />
+                  <MotivationalQuotes quotes={fetchUserQuotes} />
                 </ProtectedRoute>
               }/>
               <Route path="/profile" element={

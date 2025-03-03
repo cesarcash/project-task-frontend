@@ -42,10 +42,6 @@ class Api {
 
     }
 
-    async likeQuote(data){
-        return this._makeRequest('/quotes/addQuote', 'POST', data);
-    }
-
     async getUserInfo(){
         return this._makeRequest('/users/me');
     }

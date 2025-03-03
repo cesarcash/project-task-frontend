@@ -1,8 +1,9 @@
+import { useEffect, useState } from 'react';
 import './MotivationalQuote.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faQuoteLeft, faQuoteRight, faThumbsUp } from '@fortawesome/free-solid-svg-icons';
 
-const MotivationalQuote = ({quote, handleLikeQuote}) => {
+const MotivationalQuote = ({quote}) => {    
 
     return (
         <div className="quote">
@@ -12,11 +13,6 @@ const MotivationalQuote = ({quote, handleLikeQuote}) => {
                 {quote.content}
                 <FontAwesomeIcon icon={faQuoteRight} />
             </blockquote>
-            <div className="quote__actions">
-                <button className="quote__like" aria-label="Me gusta" onClick={()=> handleLikeQuote({author: quote.author, content: quote.content, tags: quote.tags})}>
-                    <FontAwesomeIcon icon={faThumbsUp} />
-                </button>
-            </div>
         </div>
     );
 

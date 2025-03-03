@@ -8,14 +8,14 @@ import api from '../../utils/ThirdPartyApi';
 import MotivationalQuote from '../MotivationalQuote/MotivationalQuote';
 import './Main.css';
 
-const Main = ({handleTaskNew,tasks,onTaskDelete,onTaskUpdate,statusTask,setStatusTask,handleLikeQuote}) => {
+const Main = ({handleTaskNew,tasks,onTaskDelete,onTaskUpdate,statusTask,setStatusTask}) => {
 
     const {openPopup} = useContext(PopupContext);
 
     const setQuoteRandom = (data) => {
 
         const quote = data[0];
-        openPopup('Haz terminado tu tarea', <MotivationalQuote quote={quote} handleLikeQuote={handleLikeQuote} />)
+        openPopup('Haz terminado tu tarea', <MotivationalQuote quote={quote} />)
         setStatusTask(false);
 
     }
