@@ -25,7 +25,8 @@ const MotivationalQuotes = () => {
         loading.showLoading();
 
         try {
-            const newQuotes = await api.getQuotes(3);
+            // const newQuotes = await api.getQuotes(3);
+            const newQuotes = await api.getQuote();
             setQuotes(prevQuotes => [...prevQuotes, ...newQuotes]);
 
             if (newQuotes.length < 3) {
@@ -55,7 +56,10 @@ const MotivationalQuotes = () => {
                             <p className="quotes__author">{quote.author}</p>
                         </div>
                         <div className="quotes__body">
-                            <p className="quotes__paragraph">{quote.content}</p>
+                            <p className="quotes__paragraph">{quote.quote}</p>
+                        </div>
+                        <div className="quotes__footer">
+                            <p className="quotes__category">{quote.category}</p>
                         </div>
                     </div>
                 ))}

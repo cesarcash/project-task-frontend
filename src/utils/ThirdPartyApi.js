@@ -31,19 +31,26 @@ class Api {
 
     }
 
-    async getQuotes(num){
-        return this.__makeRequest(`quotes/random?limit=${num}`);
-    }
+    // async getQuotes(num){
+    //     return this.__makeRequest(`quotes/random?limit=${num}`);
+    // }
+
+    // async getQuote(){
+    //     return this.__makeRequest('quotes/random')
+    // }
 
     async getQuote(){
-        return this.__makeRequest('quotes/random')
+        return this.__makeRequest('v1/quotes/');
     }
 
 }
 
 const api = new Api({ 
     url: API_URL,
-    headers: {'Content-Type': 'application/json'}
+    headers: {
+        'Content-Type': 'application/json',
+        'X-Api-Key': '6gqPOyRe3iOz2DFMy79kHA==UjmB8SZTO6DjkNu3'
+    }
 });
 
 export default api;

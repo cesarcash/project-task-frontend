@@ -10,7 +10,7 @@ const MotivationalQuote = ({quote}) => {
             <p className="quote__author">{quote.author}</p>
             <blockquote className='quote__content'>
                 <FontAwesomeIcon icon={faQuoteLeft} /> 
-                {quote.content}
+                {quote.quote}
                 <FontAwesomeIcon icon={faQuoteRight} />
             </blockquote>
         </div>
