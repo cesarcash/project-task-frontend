@@ -72,6 +72,16 @@ function App() {
       }
     } catch (err) {
       console.error("Error en el registro:", err.message);
+      toast.error(`${err.message}`, {
+        position: 'bottom-center',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
       throw err;
     }
 
@@ -94,9 +104,21 @@ function App() {
       }
 
     }catch(err){
-      console.log("🚀 ~ handleLogin ~ err:", err)
+      console.log(err)
+      toast.error(`${err}`, {
+        position: 'bottom-center',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      throw err;
+      
     }
-
+    
   }
 
   const handleTaskNew = async ({title, description, endDate}) => {
@@ -113,6 +135,16 @@ function App() {
 
     }catch(err){
       console.log("🚀 ~ handleTaskNew ~ err:", err)
+      toast.error(`${err}`, {
+        position: 'bottom-center',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     }
 
   }
@@ -126,6 +158,16 @@ function App() {
 
     }catch(err){
       console.log("🚀 ~ handleTaskDelete ~ err:", err)
+      toast.error(`${err}`, {
+        position: 'bottom-center',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     }
 
   }
@@ -138,9 +180,18 @@ function App() {
         fetchUserTasks()
         setStatusTask(status)
       }
-      console.log("🚀 ~ handleTaskStatus ~ res:", res)
     }catch(err){
       console.log("🚀 ~ handleTaskStatus ~ err:", err)
+      toast.error(`${err}`, {
+        position: 'bottom-center',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     }
 
   }
@@ -168,19 +219,19 @@ function App() {
 
     }catch(err){
       console.log("🚀 ~ handleUpdateProfile ~ err:", err)
+      toast.error(`${err}`, {
+        position: 'bottom-center',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      
     }
 
-  }
-
-  const handleLikeQuote = async (data) => {
-    try {
-
-      const res = await api.likeQuote(data);
-      console.log("🚀 ~ handleLikeQuote ~ res:", res)
-
-    }catch(err){
-      console.log("🚀 ~ handleLikeQuote ~ err:", err)
-    }
   }
 
   async function fetchUserInfo(){
@@ -233,7 +284,7 @@ function App() {
               }/>
               <Route path="/my-task" element={
                 <ProtectedRoute isLoggedIn={isLoggedIn}>
-                  <Main handleTaskNew={handleTaskNew} handleLikeQuote={handleLikeQuote} statusTask={statusTask} setStatusTask={setStatusTask} tasks={tasks} onTaskDelete={handleTaskDelete} onTaskUpdate={handleTaskStatus} />
+                  <Main handleTaskNew={handleTaskNew} statusTask={statusTask} setStatusTask={setStatusTask} tasks={tasks} onTaskDelete={handleTaskDelete} onTaskUpdate={handleTaskStatus} />
                 </ProtectedRoute>
               }/>
               <Route path="/quotes" element={

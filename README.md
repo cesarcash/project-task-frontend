@@ -18,7 +18,7 @@ El poryecto podrá escalar como un panel administrativo
 
 - Implementación de React
 - Creación de diseño HTML5 y CSS3 (Grid layout, flexbox, HTML Semántico, Mobil first, Responsive Web Design)
-- Conexión con API Quotable 
+- Conexión con API Quotable
 - Cambio de API a Quotes API 
 - Creación de modulos 
 
@@ -27,7 +27,11 @@ El poryecto podrá escalar como un panel administrativo
 - Implementación de rutas 
 - Protección de rutas 
 - Authenticación en el frontend 
+- Se cambió de API porque la API Quotable no permitía peticiones https
 
 ### URL de ingreso
 
 - [https://apptask.twilightparadox.com/](https://apptask.twilightparadox.com/)
+
+### API externa
+- [https://api.api-ninjas.com/](https://api.api-ninjas.com/v1/quotes/)
