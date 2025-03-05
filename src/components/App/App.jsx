@@ -25,7 +25,8 @@ function App() {
   const [isPopupOpen, setPopupOpen] = useState(false);
   const [tasks, setTasks] = useState([]);
   const [apiToken, setApiToken] = useState(getToken || '');
-  const [statusTask, setStatusTask] = useState('')
+  const [statusTask, setStatusTask] = useState('');
+  const [dataError, setDataError] = useState(null);
 
   const showLoading = () => setLoading(true);
   const hideLoading = () => setLoading(false);
@@ -71,7 +72,6 @@ function App() {
         });
       }
     } catch (err) {
-      console.error("Error en el registro:", err.message);
       toast.error(`${err.message}`, {
         position: 'bottom-center',
         autoClose: 5000,
@@ -102,10 +102,11 @@ function App() {
         const redirectPath = location.state?.from?.pathname || '/';
         navigate(redirectPath)
       }
+      setDataError(null);
 
     }catch(err){
-      console.log(err)
-      toast.error(`${err}`, {
+      setDataError(err.message);
+      toast.error(`${err.message}`, {
         position: 'bottom-center',
         autoClose: 5000,
         hideProgressBar: false,
@@ -134,8 +135,7 @@ function App() {
       }
 
     }catch(err){
-      console.log("🚀 ~ handleTaskNew ~ err:", err)
-      toast.error(`${err}`, {
+      toast.error(`${err.message}`, {
         position: 'bottom-center',
         autoClose: 5000,
         hideProgressBar: false,
@@ -157,8 +157,7 @@ function App() {
       setTasks(tasks.filter(itemTask => itemTask._id !== task._id));
 
     }catch(err){
-      console.log("🚀 ~ handleTaskDelete ~ err:", err)
-      toast.error(`${err}`, {
+      toast.error(`${err.message}`, {
         position: 'bottom-center',
         autoClose: 5000,
         hideProgressBar: false,
@@ -181,8 +180,7 @@ function App() {
         setStatusTask(status)
       }
     }catch(err){
-      console.log("🚀 ~ handleTaskStatus ~ err:", err)
-      toast.error(`${err}`, {
+      toast.error(`${err.message}`, {
         position: 'bottom-center',
         autoClose: 5000,
         hideProgressBar: false,
@@ -218,8 +216,7 @@ function App() {
       }
 
     }catch(err){
-      console.log("🚀 ~ handleUpdateProfile ~ err:", err)
-      toast.error(`${err}`, {
+      toast.error(`${err.message}`, {
         position: 'bottom-center',
         autoClose: 5000,
         hideProgressBar: false,
@@ -243,7 +240,16 @@ function App() {
       setCurrentUser({name: res.name, email: res.email, avatar: res.avatar})
 
     }catch(err){
-      console.error("Error al obtener la información del usuario: ",err);
+      toast.error(`${err.message}`, {
+        position: 'bottom-center',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     }
 
   }
@@ -258,7 +264,16 @@ function App() {
       }
 
     }catch(err){
-      console.log("🚀 ~ fetchUserTasks ~ err:", err)
+      toast.error(`${err.message}`, {
+        position: 'bottom-center',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     }
 
   }
@@ -305,7 +320,8 @@ function App() {
             </Route>
             <Route path="/signin" element={
               <ProtectedRoute isLoggedIn={isLoggedIn} anonymous>
-                <Signin handleLogin={handleLogin} />
+                <Signin handleLogin={handleLogin} dataError={dataError} setDataError={setDataError} />
+                {/* <Signin handleLogin={handleLogin} /> */}
               </ProtectedRoute>
             }/>
             <Route path="/signup" element={

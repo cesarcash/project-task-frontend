@@ -1,5 +1,6 @@
 import { API_BACKEND } from './constants';
 import { getToken } from './token';
+import ApiError from './ApiError';
 
 class Api {
 
@@ -27,16 +28,16 @@ class Api {
         try {
 
             const res = await fetch(`${this._url}${endpoint}`, options);
+
             if(!res.ok){
-                const error = new Error(`Error: ${res.status}: ${res.statusText || 'Ocurrió un error'}`);
-                error.statusCode = res.status;
-                throw error;
+                const errorData = await res.json();
+                throw new ApiError(errorData.message || "Ocurrión un error inesperado", res.status);
             }
 
             return await res.json();
 
         }catch(error){
-            console.error(`Error en ${method} ${endpoint}: ${error.message}`);
+            console.log("🚀 ~ Api ~ _makeRequest ~ error:", error)
             throw error;
         }
 

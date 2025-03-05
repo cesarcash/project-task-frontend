@@ -12,7 +12,6 @@ const Settings = ({handleUpdateProfile}) => {
     const [password, setPassword] = useState('');
     const [inputType, setInputType] = useState('password');
     const currentUser = useContext(CurrentUserContext);
-    console.log("🚀 ~ Settings ~ currentUser:", currentUser)
 
     const handleChangeName = (e) => {
         setName(e.target.value);

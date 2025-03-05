@@ -28,7 +28,7 @@ const Main = ({handleTaskNew,tasks,onTaskDelete,onTaskUpdate,statusTask,setStatu
                 const quote = await api.getQuote();
                 setQuoteRandom(quote)
             }catch(err){
-                console.log("🚀 ~ fetchQuoteRandom ~ err:", err)
+                console.error("🚀 ~ fetchQuoteRandom ~ err:", err)
             }
 
         }

@@ -3,10 +3,15 @@ import { NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRightToBracket } from '@fortawesome/free-solid-svg-icons';
 import { useFormWithValidation } from '../../utils/validationForm';
+import { useEffect } from 'react';
 
-const Sigin = ({ handleLogin }) => {
+const Sigin = ({ handleLogin, dataError, setDataError }) => {    
 
     const {values, handleChange, errors, isValid, resetForm} = useFormWithValidation();
+
+    // useEffect(() => {
+    //     setDataError(null);
+    // },[])
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -17,7 +22,6 @@ const Sigin = ({ handleLogin }) => {
     }
 
     return (
-
         <div className="login">
             <h1 className="login__title">App Task</h1>
             <form className="form form--login" onSubmit={handleSubmit}>
@@ -36,7 +40,10 @@ const Sigin = ({ handleLogin }) => {
                 <p className="login__paragraph login__paragraph--small">
                     ¿Aún no eres miembro? Regístrate <NavLink to="/signup" className="login__paragraph_link">aquí</NavLink>
                 </p>
-            </form>                
+            </form>
+            {
+                // dataError && <div>{dataError}</div>
+            }
         </div>
         
     );
