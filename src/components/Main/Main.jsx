@@ -6,6 +6,7 @@ import TaskForm from '../TaskForm/TaskForm';
 import TaskList from '../TaskList/TaskList';
 import api from '../../utils/ThirdPartyApi';
 import MotivationalQuote from '../MotivationalQuote/MotivationalQuote';
+import { ToastContainer, toast } from 'react-toastify';
 import './Main.css';
 
 const Main = ({handleTaskNew,tasks,onTaskDelete,onTaskUpdate,statusTask,setStatusTask}) => {
@@ -27,8 +28,19 @@ const Main = ({handleTaskNew,tasks,onTaskDelete,onTaskUpdate,statusTask,setStatu
             try{
                 const quote = await api.getQuote();
                 setQuoteRandom(quote)
-            }catch(err){
-                console.error("🚀 ~ fetchQuoteRandom ~ err:", err)
+            }catch(error){
+                // console.error("🚀 ~ fetchQuoteRandom ~ err:", err)
+                toast.error(`${error.message}`, {
+                    position: 'bottom-center',
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: false,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                });
+                throw error;
             }
 
         }
@@ -61,34 +73,48 @@ const Main = ({handleTaskNew,tasks,onTaskDelete,onTaskUpdate,statusTask,setStatu
     }
 
     return (
-        <main className="main">
-            <Header>
-                <h2 className="header__title">Mis tareas</h2>
-                <button className="form__button" onClick={handleAddTask}>Añadir tarea</button>
-            </Header>
-            <section className="main__body">
-                <TaskList
-                    title="PENDING"
-                    tasks={formattedTasks.filter(task => task.status === "pending")}
-                    nextStatus="in progress"
-                    handleTaskUpdate={handleTaskUpdate}
-                    handleTaskDelete={handleTaskDelete}
-                    showDelete={true}
-                />
+        <>
+            <main className="main">
+                <Header>
+                    <h2 className="header__title">Mis tareas</h2>
+                    <button className="form__button" onClick={handleAddTask}>Añadir tarea</button>
+                </Header>
+                <section className="main__body">
+                    <TaskList
+                        title="PENDING"
+                        tasks={formattedTasks.filter(task => task.status === "pending")}
+                        nextStatus="in progress"
+                        handleTaskUpdate={handleTaskUpdate}
+                        handleTaskDelete={handleTaskDelete}
+                        showDelete={true}
+                    />
 
-                <TaskList
-                    title="DOING"
-                    tasks={formattedTasks.filter(task => task.status === "in progress")}
-                    nextStatus="completed"
-                    handleTaskUpdate={handleTaskUpdate}
-                />
+                    <TaskList
+                        title="DOING"
+                        tasks={formattedTasks.filter(task => task.status === "in progress")}
+                        nextStatus="completed"
+                        handleTaskUpdate={handleTaskUpdate}
+                    />
 
-                <TaskList
-                    title="COMPLETED"
-                    tasks={formattedTasks.filter(task => task.status === "completed")}
-                />
-            </section>
-        </main>
+                    <TaskList
+                        title="COMPLETED"
+                        tasks={formattedTasks.filter(task => task.status === "completed")}
+                    />
+                </section>
+            </main>
+            <ToastContainer 
+                position="bottom-center"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick={false}
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
+        </>
     )
 }
 

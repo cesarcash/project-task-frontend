@@ -25,7 +25,7 @@ class Api {
             return await res.json();
 
         }catch(err){
-            console.error(`API error ${err}`);
+            // console.error(`API error ${err}`);
             throw err;
         }
 

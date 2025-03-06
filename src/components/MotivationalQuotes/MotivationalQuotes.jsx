@@ -3,6 +3,8 @@ import './MotivationalQuotes.css';
 import Header from '../Header/Header';
 import api from '../../utils/ThirdPartyApi';
 import LoadingContext from '../../context/LoadingContext';
+import { ToastContainer, toast } from 'react-toastify';
+
 
 const MotivationalQuotes = () => {
 
@@ -33,7 +35,18 @@ const MotivationalQuotes = () => {
                 setHasMore(false);
             }
         } catch (error) {
-            console.error('Error fetching quotes:', error);
+            toast.error(`${error.message}`, {
+                position: 'bottom-center',
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
+            throw error;
+            // console.error('Error fetching quotes:', error);
         } finally {
             loading.hideLoading();
         }
@@ -64,6 +77,18 @@ const MotivationalQuotes = () => {
                     </div>
                 ))}
             </section>
+            <ToastContainer 
+                position="bottom-center"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick={false}
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
             <div className="quotes__load">
                 <button onClick={handleLoadMore} className="form__button">Cargar mas</button>
             </div>

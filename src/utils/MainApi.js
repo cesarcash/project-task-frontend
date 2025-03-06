@@ -37,7 +37,7 @@ class Api {
             return await res.json();
 
         }catch(error){
-            console.log("🚀 ~ Api ~ _makeRequest ~ error:", error)
+            // console.log("🚀 ~ Api ~ _makeRequest ~ error:", error)
             throw error;
         }
 
