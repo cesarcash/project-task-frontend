@@ -1,11 +1,15 @@
+import { useContext } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHouse, faUser, faRightFromBracket, faListCheck, faGear, faQuoteLeft } from '@fortawesome/free-solid-svg-icons';
 import Menu from '../Menu/Menu'
 import './Aside.css';
-import Avatar from '../../images/avatar.png';
+import CurrentUserContext from '../../context/CurrentUserContext';
+// import Avatar from '../../images/avatar.png';
 
-const Aside = () => {
+const Aside = ({signOut}) => {
+
+    const user = useContext(CurrentUserContext);
 
     const customClassName = ({isActive}) => "menu__link" + (isActive ? " menu__link--isActive " : "" );
 
@@ -13,7 +17,7 @@ const Aside = () => {
         <aside className="aside" id="sidebar">
             <div className="aside__container">
                 <div className="aside__header">
-                    <img src={Avatar} alt="avatar" className="aside__profile" />
+                    <img src={user.avatar} alt="avatar" className="aside__profile" />
                     <h1 className="aside__title">App Task</h1>
                 </div>
                 <div className="aside__content">
@@ -53,7 +57,7 @@ const Aside = () => {
                             </NavLink>
                         </li>
                         <li className="menu__item">
-                            <Link to="/logout" className="menu__link">
+                            <Link to="/logout" className="menu__link" onClick={signOut}>
                                 <FontAwesomeIcon className="menu__icon" icon={faRightFromBracket} />
                                 <span className="menu__text">Salir</span>
                             </Link>

@@ -1,111 +1,120 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
+import moment from 'moment';
 import Header from '../Header/Header';
 import PopupContext from "../../context/PopupContext";
-
+import TaskForm from '../TaskForm/TaskForm';
+import TaskList from '../TaskList/TaskList';
+import api from '../../utils/ThirdPartyApi';
+import MotivationalQuote from '../MotivationalQuote/MotivationalQuote';
+import { ToastContainer, toast } from 'react-toastify';
 import './Main.css';
 
-const Main = () => {
+const Main = ({handleTaskNew,tasks,onTaskDelete,onTaskUpdate,statusTask,setStatusTask}) => {
 
     const {openPopup} = useContext(PopupContext);
 
+    const setQuoteRandom = (data) => {
+
+        const quote = data[0];
+        openPopup('Haz terminado tu tarea', <MotivationalQuote quote={quote} />)
+        setStatusTask(false);
+
+    }
+
+    useEffect(() => {
+
+        const fetchQuoteRandom = async () => {
+    
+            try{
+                const quote = await api.getQuote();
+                setQuoteRandom(quote)
+            }catch(error){
+                // console.error("🚀 ~ fetchQuoteRandom ~ err:", err)
+                toast.error(`${error.message}`, {
+                    position: 'bottom-center',
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: false,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                });
+                throw error;
+            }
+
+        }
+
+        if(statusTask === 'completed'){
+            fetchQuoteRandom();
+        }
+
+    },[statusTask])
+    
+
+
+    const formattedTasks = tasks.map(task => ({
+        ...task,
+        endDate: moment(task.endDate).format("YYYY-MM-DD"),
+        createdAt: moment(task.createdAt).format("YYYY-MM-DD"),
+    }));
+
+
     const handleAddTask = () => {
-        openPopup('Nueva tarea', (
-            <form className="form">
-                <div className="form__row">
-                    <label htmlFor="titulo" className="form__label">Título de la tarea</label>
-                    <input type="text" id="titulo" className="form__input" name="title" required />
-                </div>
-                <div className="form__row">
-                    <label htmlFor="descripcion" className="form__label">Descripción</label>
-                    <textarea className="form__input" id="descripcion" name="description" required></textarea>
-                </div>
-                <div className="form__row">
-                    <label htmlFor="date" className="form__label">Fecha de término</label>
-                    <input type="date" className="form__input" id="date" name="endDate" />
-                </div>
-                <div className="form__row">
-                    <button className="form__button form__button--add-task" type="submit">Añadir tarea</button>
-                </div>
-            </form>
-        ));
+        openPopup('Nueva tarea', <TaskForm handleTaskNew={handleTaskNew} />);
+    }
+
+    const handleTaskDelete = (task) => {
+        onTaskDelete(task)
+    }
+
+    const handleTaskUpdate = (task,status) => {
+        onTaskUpdate(task,status)
     }
 
     return (
-        <main className="main">
-            <Header>
-                <h2 className="header__title">Mis tareas</h2>
-                <button className="form__button" onClick={handleAddTask}>Añadir tarea</button>
-            </Header>
-            <section className="main__body">
-                <div className="main__pending">
-                    <p className="main__body-title main__body-title--pending">PENDIENTE</p>
-                    <div className="main__task">
-                        <p className="main__task-title">Titulo de la tarea</p>
-                        <p className="main__task-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum facilis ullam ea rerum iusto dolorem consectetur temporibus ipsa, repudiandae provident beatae nobis nostrum eius quidem, porro ipsam id praesentium incidunt?</p>
-                        <p className="main__task-date">21/01/2025</p>
-                    </div>
-                    <div className="main__task">
-                        <p className="main__task-title">Titulo de la tarea</p>
-                        <p className="main__task-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum facilis ullam ea rerum iusto dolorem consectetur temporibus ipsa, repudiandae provident beatae nobis nostrum eius quidem, porro ipsam id praesentium incidunt?</p>
-                        <p className="main__task-date">21/01/2025</p>
-                    </div>
-                    <div className="main__task">
-                        <p className="main__task-title">Titulo de la tarea</p>
-                        <p className="main__task-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum facilis ullam ea rerum iusto dolorem consectetur temporibus ipsa, repudiandae provident beatae nobis nostrum eius quidem, porro ipsam id praesentium incidunt?</p>
-                        <p className="main__task-date">21/01/2025</p>
-                    </div>
-                    <div className="main__task">
-                        <p className="main__task-title">Titulo de la tarea</p>
-                        <p className="main__task-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum facilis ullam ea rerum iusto dolorem consectetur temporibus ipsa, repudiandae provident beatae nobis nostrum eius quidem, porro ipsam id praesentium incidunt?</p>
-                        <p className="main__task-date">21/01/2025</p>
-                    </div>
-                    <div className="main__task">
-                        <p className="main__task-title">Titulo de la tarea</p>
-                        <p className="main__task-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum facilis ullam ea rerum iusto dolorem consectetur temporibus ipsa, repudiandae provident beatae nobis nostrum eius quidem, porro ipsam id praesentium incidunt?</p>
-                        <p className="main__task-date">21/01/2025</p>
-                    </div>
-                    <div className="main__task">
-                        <p className="main__task-title">Titulo de la tarea</p>
-                        <p className="main__task-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum facilis ullam ea rerum iusto dolorem consectetur temporibus ipsa, repudiandae provident beatae nobis nostrum eius quidem, porro ipsam id praesentium incidunt?</p>
-                        <p className="main__task-date">21/01/2025</p>
-                    </div>
-                    <div className="main__task">
-                        <p className="main__task-title">Titulo de la tarea</p>
-                        <p className="main__task-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum facilis ullam ea rerum iusto dolorem consectetur temporibus ipsa, repudiandae provident beatae nobis nostrum eius quidem, porro ipsam id praesentium incidunt?</p>
-                        <p className="main__task-date">21/01/2025</p>
-                    </div>
-                    <div className="main__task">
-                        <p className="main__task-title">Titulo de la tarea</p>
-                        <p className="main__task-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum facilis ullam ea rerum iusto dolorem consectetur temporibus ipsa, repudiandae provident beatae nobis nostrum eius quidem, porro ipsam id praesentium incidunt?</p>
-                        <p className="main__task-date">21/01/2025</p>
-                    </div>
-                </div>
+        <>
+            <main className="main">
+                <Header>
+                    <h2 className="header__title">Mis tareas</h2>
+                    <button className="form__button" onClick={handleAddTask}>Añadir tarea</button>
+                </Header>
+                <section className="main__body">
+                    <TaskList
+                        title="PENDING"
+                        tasks={formattedTasks.filter(task => task.status === "pending")}
+                        nextStatus="in progress"
+                        handleTaskUpdate={handleTaskUpdate}
+                        handleTaskDelete={handleTaskDelete}
+                        showDelete={true}
+                    />
 
-                <div className="main__progress">
-                    <p className="main__body-title main__body-title--doing">HACIENDO</p>
-                    <div className="main__task">
-                        <p className="main__task-title">Titulo de la tarea</p>
-                        <p className="main__task-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum facilis ullam ea rerum iusto dolorem consectetur temporibus ipsa, repudiandae provident beatae nobis nostrum eius quidem, porro ipsam id praesentium incidunt?</p>
-                    </div>
-                    <div className="main__task">
-                        <p className="main__task-title">Titulo de la tarea</p>
-                        <p className="main__task-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum facilis ullam ea rerum iusto dolorem consectetur temporibus ipsa, repudiandae provident beatae nobis nostrum eius quidem, porro ipsam id praesentium incidunt?</p>
-                    </div>
-                </div>
+                    <TaskList
+                        title="DOING"
+                        tasks={formattedTasks.filter(task => task.status === "in progress")}
+                        nextStatus="completed"
+                        handleTaskUpdate={handleTaskUpdate}
+                    />
 
-                <div className="main__done">
-                    <p className="main__body-title main__body-title--completed">TERMINADAS</p>
-                    <div className="main__task">
-                        <p className="main__task-title">Titulo de la tarea</p>
-                        <p className="main__task-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum facilis ullam ea rerum iusto dolorem consectetur temporibus ipsa, repudiandae provident beatae nobis nostrum eius quidem, porro ipsam id praesentium incidunt?</p>
-                    </div>
-                    <div className="main__task">
-                        <p className="main__task-title">Titulo de la tarea</p>
-                        <p className="main__task-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum facilis ullam ea rerum iusto dolorem consectetur temporibus ipsa, repudiandae provident beatae nobis nostrum eius quidem, porro ipsam id praesentium incidunt?</p>
-                    </div>
-                </div>
-            </section>
-        </main>
+                    <TaskList
+                        title="COMPLETED"
+                        tasks={formattedTasks.filter(task => task.status === "completed")}
+                    />
+                </section>
+            </main>
+            <ToastContainer 
+                position="bottom-center"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick={false}
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
+        </>
     )
 }
 

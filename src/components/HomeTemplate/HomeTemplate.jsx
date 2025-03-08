@@ -7,7 +7,7 @@ import LoadingContext from "../../context/LoadingContext";
 import PopupContext from "../../context/PopupContext";
 import Popup from "../Popup/Popup";
 
-const HomeTemplate = () => {
+const HomeTemplate = ({signOut}) => {
     
     const loading = useContext(LoadingContext);
     const popup = useContext(PopupContext);
@@ -16,11 +16,11 @@ const HomeTemplate = () => {
         <div className="page">
             {loading.isLoading && (<Preloader></Preloader>)}
             {popup.isPopupOpen && (
-                <Popup onClose={() => popup.setPopupOpen(false)} title={popup.popupTitle}>
+                <Popup onClose={popup.closePopup} title={popup.popupTitle}>
                     {popup.popupContent}     
                 </Popup>
             )}
-            <Aside></Aside>
+            <Aside signOut={signOut}></Aside>
             <Outlet></Outlet>
             <Footer></Footer>
         </div>

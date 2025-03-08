@@ -1,9 +1,16 @@
-import { Navigate } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 
-const ProtectedRoute = ({isLoggedIn, children}) => {
+const ProtectedRoute = ({isLoggedIn, children, anonymous = false}) => {
 
-    if(!isLoggedIn){
-        return <Navigate to="/signin" replace />;
+    const location = useLocation();
+    const from = location.state?.from || "/";
+
+    if(anonymous && isLoggedIn){
+        return <Navigate to={from} />
+    }
+
+    if(!anonymous && !isLoggedIn){
+        return <Navigate to="/signin" state={{ from: location }} />;
     }
 
     return children;

@@ -49,6 +49,13 @@
     cursor: pointer;
 }
 
+.form__button:disabled {
+    opacity: .5;
+    color: var(--dark-gray);
+    background-color: var(--light-gray);
+    cursor: not-allowed;
+}
+
 .form__button--add-task {
     margin-block-start: .5rem;
     align-self: flex-end;

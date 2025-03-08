@@ -1,5 +1,6 @@
 import { API_BACKEND } from './constants';
 import { getToken } from './token';
+import ApiError from './ApiError';
 
 class Api {
 
@@ -27,49 +28,58 @@ class Api {
         try {
 
             const res = await fetch(`${this._url}${endpoint}`, options);
+
             if(!res.ok){
-                const error = new Error(`Error: ${res.status}: ${res.statusText || 'Ocurrió un error'}`);
-                error.statusCode = res.status;
-                throw error;
+                const errorData = await res.json();
+                throw new ApiError(errorData.message || "Ocurrión un error inesperado", res.status);
             }
 
             return await res.json();
 
         }catch(error){
-            console.error(`Error en signup: ${error.message}`);
+            // console.log("🚀 ~ Api ~ _makeRequest ~ error:", error)
             throw error;
         }
 
     }
 
-    getUser(){
+    async getUserInfo(){
         return this._makeRequest('/users/me');
     }
 
-    updateUser({name,email,password}){
-        return this._makeRequest('/users/me', 'PATCH', {name,email,password});
+    async updateUser({name,avatar,password}){
+        return this._makeRequest('/users/me', 'PUT', {name,avatar,password});
     }
 
-    getTasks(){
+    async getTasks(){
         return this._makeRequest('/tasks');
     }
 
-    createTask(data){
+    async createTask(data){
         return this._makeRequest('/tasks', 'POST', data);
     }
 
-    updateTask(id, data){
-        return this._makeRequest(`/tasks/${id}`, 'PUT', data);
+    async updateTaskStatus(id, {status}){
+        return this._makeRequest(`/tasks/${id}`, 'PATCH', {status});
     }
 
-    deleteTask(id){
+    async deleteTask(id){
         return this._makeRequest(`/tasks/${id}`, 'DELETE');
+    }
+
+    async signin(data){
+        return this._makeRequest('/signin', 'POST', data);
+    }
+
+    async signup(data){
+        return this._makeRequest('/signup', 'POST', data);
     }
 
 }
 
 const api = new Api({
     headers: {
+        Accept: 'application/json',
         'Content-Type': 'application/json'
     },
     url: API_BACKEND

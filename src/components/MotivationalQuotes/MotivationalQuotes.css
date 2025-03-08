@@ -1,5 +1,5 @@
 .quotes {
-    padding: 4rem 3rem;
+    padding: 3rem 3rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -25,6 +25,7 @@
 
 .quotes__body {
     padding-block-start: 1rem;
+    padding-block-end: 1rem;
 }
 
 .quotes__author {
@@ -45,4 +46,20 @@
     display: flex;
     justify-content: center;
     padding: 2rem 0;
+}
+
+.quotes__footer {
+    border-block-start: 1px solid var(--dark-gray);
+    display: flex;
+    justify-content: flex-end;
+    padding-block-start: 1rem;
+
+}
+
+.quotes__category {
+    font-size: .8rem;
+    background-color: var(--dark-gray);
+    display: inline-block;
+    padding: .5rem .8rem;
+    margin: 0;
 }
